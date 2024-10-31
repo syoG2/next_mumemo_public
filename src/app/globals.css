@@ -1,0 +1,95 @@
+@import '~normalize.css/normalize.css';
+
+:root {
+
+    /* レイアウト */
+    --grid-template-rows: var(--header-height) 1fr var(--footer-height);
+    --grid-template-columns: 1fr var(--main-width) var(--rside-width) 1fr;
+    --header-height: 64px;
+    --footer-height: 120px;
+    --main-width: 300px;
+    --rside-width: 300px;
+
+    /* カラー */
+    --white: white;
+    --black: black;
+
+    --bg-color: #dddddd;
+    --main-bg-color: #eeeeee;
+    --shadow: 0px 2px 2px #333333;
+    --color: #000000;
+    --caret-color: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #222222;
+        --main-bg-color: #333333;
+        --shadow: 0px 2px 2px #000000;
+        --color: #ffffff;
+        --caret-color: #ffffff;
+    }
+}
+
+/* --break-point-xs */
+@media (min-width: 0px) {
+    :root {
+        --main-width: calc(100vw*11/12);
+        --rside-width: 0px;
+        --grid-template-rows: var(--header-height) auto 1fr var(--footer-height);
+        --grid-template-columns: 1fr var(--main-width) 1fr;
+    }
+}
+
+/* --break-point-sm */
+@media (min-width: 780px) {
+    :root {
+        --main-width: calc(780px*11/12);
+        --rside-width: 0px;
+        --grid-template-rows: var(--header-height) auto 1fr var(--footer-height);
+        --grid-template-columns: 1fr var(--main-width) 1fr;
+    }
+}
+
+/* --break-point-md */
+@media (min-width: 960px) {
+    :root {
+        --main-width: calc(960px*7/12);
+        --rside-width: calc(960px*3/12);
+        --grid-template-rows: var(--header-height) 1fr var(--footer-height);
+        --grid-template-columns: 1fr var(--main-width) var(--rside-width) 1fr;
+    }
+}
+
+/* --break-point-lg */
+@media (min-width: 1260px) {
+    :root {
+        --main-width: calc(1260px*7/12);
+        --rside-width: calc(1260px*3/12);
+        --grid-template-rows: var(--header-height) 1fr var(--footer-height);
+        --grid-template-columns: 1fr var(--main-width) var(--rside-width) 1fr;
+    }
+}
+
+/* --break-point-xl */
+@media (min-width: 1920px) {
+    :root {
+        --main-width: calc(1920px*7/12);
+        --rside-width: calc(1920px*3/12);
+        --grid-template-rows: var(--header-height) 1fr var(--footer-height);
+        --grid-template-columns: 1fr var(--main-width) var(--rside-width) 1fr;
+    }
+}
+
+html {
+    height: 100vh;
+    max-width: 100vw;
+    background-color: var(--bg-color);
+    color: var(--color);
+    caret-color: var(--caret-color);
+}
+
+body {
+    height: 100%;
+    max-width: 100vw;
+}
