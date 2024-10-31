@@ -3,7 +3,8 @@
     display: grid;
     grid-template-rows: var(--grid-template-rows);
     grid-template-columns: var(--grid-template-columns);
-    gap: 18px;
+    row-gap: 19px;
+    column-gap: 12px;
 }
 
 .header {
