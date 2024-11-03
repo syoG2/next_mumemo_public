@@ -1,15 +1,15 @@
-
 import { blogDatabaseId, getDatabase } from "@/components/notion/notion";
 
-type Props = Readonly<{
-    params: { id: string };
-}>;
+type Props = {
+    params: Promise<{ id: string }>;
+};
 
 // TODO: Articleコンポーネントの実装
-export default function Article({ params }: Props) {
+export default async function Article({ params }: Props) {
+    const props = await params;
     return (
         <div>
-            <h1>Article {params.id}</h1>
+            <h1>Article {props.id}</h1>
         </div>
     )
 }
