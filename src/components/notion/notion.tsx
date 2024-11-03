@@ -66,3 +66,22 @@ export const getDatabase = async (databaseId: string): Promise<(ExPageObjectResp
         }
     });
 }
+
+export const getPage = async (pageId: string): Promise<ExPageObjectResponse | ExPartialPageObjectResponse> => {
+    const response = await notion.pages.retrieve({
+        page_id: pageId,
+    });
+    if ('properties' in response) {
+        return {
+            type: "PageObjectResponse",
+            object: response,
+        }
+    } else {
+        return {
+            type: "PartialPageObjectResponse",
+            object: response,
+        }
+    }
+};
+
+// getPageJsonを実装する
