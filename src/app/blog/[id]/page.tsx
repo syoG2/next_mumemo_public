@@ -1,9 +1,9 @@
 
 import { blogDatabaseId, getDatabase } from "@/components/notion/notion";
 
-type Props = {
-    params: { id: string }
-};
+// type Props = {
+//     params: { id: string }
+// };
 
 // TODO: Articleコンポーネントの実装
 export default function Article({ params }: { params: { id: string } }) {
