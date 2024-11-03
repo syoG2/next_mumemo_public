@@ -1,6 +1,6 @@
-import layoutStyles from '@/layout/layout.module.css'
+import layoutStyles from '@/components/layout/layout.module.css'
 export default function Main({ children, rside = null }: { children: React.ReactNode, rside?: React.ReactNode }) {
-    if (rside == null) {
+    if (rside === null) {
         return (
             <main className={layoutStyles.onlyMain}>
                 {children}

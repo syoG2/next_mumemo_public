@@ -1,6 +1,6 @@
-import Footer from "@/layout/footer/footer";
-import Header from "@/layout/header/header";
-import layoutStyles from '@/layout/layout.module.css';
+import Footer from "@/components/layout/footer/footer";
+import Header from "@/components/layout/header/header";
+import layoutStyles from '@/components/layout/layout.module.css';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
