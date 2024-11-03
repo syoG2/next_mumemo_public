@@ -6,7 +6,7 @@ type Props = {
 };
 
 // TODO: Articleコンポーネントの実装
-export default function Article({ params }: Props) {
+export default function Article({ params }: { params: { id: string } }) {
     return (
         <div>
             <h1>Article {params.id}</h1>
