@@ -9,6 +9,7 @@ export default async function Article({ params }: Props) {
     const props = await params;
     if (blogDatabaseId) {
         const pages = await getDatabase(blogDatabaseId);
+
         return (
             <Main>
                 {pages.map((page) => {
