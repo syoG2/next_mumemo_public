@@ -12,10 +12,10 @@ export default async function Article({ params }: Props) {
     const props = await params;
     if (blogDatabaseId) {
         const pageJson = await getPageJson(props.id);
-
+        console.log(pageJson);
         return (
             <Main>
-                <div>{JSON.stringify(pageJson)}</div>
+                <div>pageJson</div>
             </Main>
         )
     } else {
