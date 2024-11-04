@@ -94,7 +94,6 @@ export const getPage = async (pageId: string): Promise<ExPageObjectResponse | Ex
     }
 };
 
-// TODO: getPageJsonを実装する
 export const getPageJson = async (pageId: string): Promise<JSON | null> => {
     const page = await getPage(pageId);
     if (page?.type === "PageObjectResponse") {
