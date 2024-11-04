@@ -4,7 +4,7 @@ import { blogDatabaseId, getDatabase } from "@/components/notion/notion";
 export const revalidate = 86400;
 
 type Props = {
-    params: Promise<{ id: string }>;
+    params: Promise<{ id: string, title: string }>;
 };
 
 // TODO: Articleコンポーネントの実装
@@ -15,6 +15,7 @@ export default async function Article({ params }: Props) {
         return (
             <Main>
                 <h1>{props.id}</h1>
+                <div>title:{props.title}</div>
             </Main>
         )
     } else {
