@@ -1,4 +1,3 @@
-// TODO: revalidateを実装する
 const NOTION_API_KEY = PropertiesService.getScriptProperties().getProperty('NOTION_API_KEY');
 const NOTION_BLOG_DATABASE_ID = PropertiesService.getScriptProperties().getProperty('NOTION_BLOG_DATABASE_ID');
 
@@ -12,7 +11,7 @@ function updateBlog() {
             try {
                 const page = getPage(pageId);
                 if (page.object.properties["公開状態"].select.name !== "公開") {
-                    setBlocks(pageId, "")
+                    setBlocks(pageId, null)
                 } else {
                     const blocks = getBlocks(pageId);
                     setBlocks(pageId, blocks);
@@ -248,13 +247,18 @@ function splitStringByLength(str, length) {
 }
 
 function setBlocks(pageId, blocks) {
-    let splitedBlocks = splitStringByLength(JSON.stringify(blocks), 2000).map(splitedBlock => {
-        return {
-            "text": {
-                "content": splitedBlock,
-            },
-        }
-    });
+    let splitedBlocks
+    if (blocks !== null) {
+        splitedBlocks = splitStringByLength(JSON.stringify(blocks), 2000).map(splitedBlock => {
+            return {
+                "text": {
+                    "content": splitedBlock,
+                },
+            }
+        });
+    } else {
+        splitedBlocks = [{ "text": { "content": "" } }]
+    }
     let url = `https://api.notion.com/v1/pages/${pageId}`;
     let payload = {
         "properties": {

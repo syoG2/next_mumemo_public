@@ -99,10 +99,12 @@ export const getPageJson = async (pageId: string): Promise<JSON | null> => {
     const page = await getPage(pageId);
     if (page?.type === "PageObjectResponse") {
         const jsonProperty = page.object.properties?.json;
-        console.log(page.object.properties);
         if (jsonProperty && jsonProperty.type === 'rich_text') {
-            const json = JSON.parse(jsonProperty.rich_text.reduce((acc, cur) => acc + cur.plain_text, ""));
-            return json;
+            const jsonStr = jsonProperty.rich_text.reduce((acc, cur) => acc + cur.plain_text, "");
+            if (jsonStr !== "") {
+                const json = JSON.parse(jsonProperty.rich_text.reduce((acc, cur) => acc + cur.plain_text, ""));
+                return json;
+            }
         }
     }
     return null;
