@@ -28,73 +28,82 @@ export type ExDatabaseObjectResponse = {
 }
 
 export const getDatabase = async (databaseId: string): Promise<(ExPageObjectResponse | ExPartialPageObjectResponse | ExPartialDatabaseObjectResponse | ExDatabaseObjectResponse)[]> => {
-    const response: QueryDatabaseResponse = await notion.databases.query({
-        database_id: databaseId,
-        filter: {
-            property: "公開状態",
-            select: {
-                equals: "公開"
-            }
-        },
-    });
+    try {
+        const response: QueryDatabaseResponse = await notion.databases.query({
+            database_id: databaseId,
+            filter: {
+                property: "公開状態",
+                select: {
+                    equals: "公開"
+                }
+            },
+        });
 
-    return response.results.map((result) => {
-        if (result.object === 'page') {
-            if ('properties' in result) {
-                return {
-                    type: "PageObjectResponse",
-                    object: result,
+        return response.results.map((result) => {
+            if (result.object === 'page') {
+                if ('properties' in result) {
+                    return {
+                        type: "PageObjectResponse",
+                        object: result,
+                    }
+                } else {
+                    return {
+                        type: "PartialPageObjectResponse",
+                        object: result,
+                    }
                 }
             } else {
-                return {
-                    type: "PartialPageObjectResponse",
-                    object: result,
+                if ('title' in result) {
+                    return {
+                        type: "DatabaseObjectResponse",
+                        object: result,
+                    }
+                } else {
+                    return {
+                        type: "PartialDatabaseObjectResponse",
+                        object: result,
+                    }
                 }
             }
-        } else {
-            if ('title' in result) {
-                return {
-                    type: "DatabaseObjectResponse",
-                    object: result,
-                }
-            } else {
-                return {
-                    type: "PartialDatabaseObjectResponse",
-                    object: result,
-                }
-            }
-        }
-    });
+        });
+    } catch (e) {
+        console.error(e);
+        return [];
+    }
 }
 
-export const getPage = async (pageId: string): Promise<ExPageObjectResponse | ExPartialPageObjectResponse> => {
-    const response = await notion.pages.retrieve({
-        page_id: pageId,
-    });
-    if ('properties' in response) {
-        return {
-            type: "PageObjectResponse",
-            object: response,
+export const getPage = async (pageId: string): Promise<ExPageObjectResponse | ExPartialPageObjectResponse | null> => {
+    try {
+        const response = await notion.pages.retrieve({
+            page_id: pageId,
+        });
+        if ('properties' in response) {
+            return {
+                type: "PageObjectResponse",
+                object: response,
+            }
+        } else {
+            return {
+                type: "PartialPageObjectResponse",
+                object: response,
+            }
         }
-    } else {
-        return {
-            type: "PartialPageObjectResponse",
-            object: response,
-        }
+    } catch (e) {
+        console.error(e);
+        return null
     }
 };
 
 // TODO: getPageJsonを実装する
-export const getPageJson = async (pageId: string): Promise<JSON> => {
+export const getPageJson = async (pageId: string): Promise<JSON | null> => {
     const page = await getPage(pageId);
-    let json = JSON.parse("");
-    if (page.type === "PageObjectResponse") {
+    if (page?.type === "PageObjectResponse") {
         const jsonProperty = page.object.properties?.json;
+        console.log(page.object.properties);
         if (jsonProperty && jsonProperty.type === 'rich_text') {
-            json = JSON.parse(jsonProperty.rich_text.reduce((acc, cur) => acc + cur.plain_text, ""));
+            const json = JSON.parse(jsonProperty.rich_text.reduce((acc, cur) => acc + cur.plain_text, ""));
+            return json;
         }
-        return json;
-    } else {
-        return json;
     }
+    return null;
 }

@@ -15,7 +15,7 @@ export default async function Article({ params }: Props) {
         console.log(pageJson);
         return (
             <Main>
-                <div>pageJson</div>
+                <div>{JSON.stringify(pageJson)}</div>
             </Main>
         )
     } else {
