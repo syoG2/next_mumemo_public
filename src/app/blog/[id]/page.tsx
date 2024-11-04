@@ -1,7 +1,7 @@
 import Main from "@/components/layout/main/main";
 import { blogDatabaseId, getDatabase, getPageJson } from "@/components/notion/notion";
 
-export const revalidate = 86400;
+export const revalidate = 10;
 
 type Props = {
     params: Promise<{ id: string }>;
