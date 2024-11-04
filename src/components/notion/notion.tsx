@@ -2,10 +2,10 @@ import { Client } from "@notionhq/client";
 import { DatabaseObjectResponse, PageObjectResponse, PartialDatabaseObjectResponse, PartialPageObjectResponse, QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 
 const notion = new Client({
-    auth: process.env.NOTION_TOKEN,
+    auth: process.env.NOTION_API_KEY,
 })
 
-export const blogDatabaseId = process.env.BLOG_DATABASE_ID;
+export const blogDatabaseId = process.env.NOTION_BLOG_DATABASE_ID;
 
 export type ExPageObjectResponse = {
     type: "PageObjectResponse",
