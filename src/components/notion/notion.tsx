@@ -85,3 +85,16 @@ export const getPage = async (pageId: string): Promise<ExPageObjectResponse | Ex
 };
 
 // TODO: getPageJsonを実装する
+export const getPageJson = async (pageId: string): Promise<JSON> => {
+    const page = await getPage(pageId);
+    let json = JSON.parse("");
+    if (page.type === "PageObjectResponse") {
+        const jsonProperty = page.object.properties?.json;
+        if (jsonProperty && jsonProperty.type === 'rich_text') {
+            json = JSON.parse(jsonProperty.rich_text.reduce((acc, cur) => acc + cur.plain_text, ""));
+        }
+        return json;
+    } else {
+        return json;
+    }
+}

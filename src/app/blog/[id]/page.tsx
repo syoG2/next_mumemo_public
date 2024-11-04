@@ -1,21 +1,21 @@
 import Main from "@/components/layout/main/main";
-import { blogDatabaseId, getDatabase } from "@/components/notion/notion";
+import { blogDatabaseId, getDatabase, getPageJson } from "@/components/notion/notion";
 
 export const revalidate = 86400;
 
 type Props = {
-    params: Promise<{ id: string, title: string }>;
+    params: Promise<{ id: string }>;
 };
 
 // TODO: Articleコンポーネントの実装
 export default async function Article({ params }: Props) {
     const props = await params;
     if (blogDatabaseId) {
+        const pageJson = await getPageJson(props.id);
 
         return (
             <Main>
-                <h1>{props.id}</h1>
-                <div>title:{props.title}</div>
+                <div>{JSON.stringify(pageJson)}</div>
             </Main>
         )
     } else {
@@ -34,7 +34,6 @@ export async function generateStaticParams() {
         return pages.map((page) => {
             return {
                 id: page.object.id,
-                title: "タイトルです"
             }
         })
     } else {
