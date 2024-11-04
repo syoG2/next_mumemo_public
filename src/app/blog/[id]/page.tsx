@@ -1,22 +1,20 @@
 import Main from "@/components/layout/main/main";
 import { blogDatabaseId, getDatabase } from "@/components/notion/notion";
+
+export const revalidate = 86400;
+
 type Props = {
-    params: Promise<{ id: string }>;
+    params: Promise<{ id: string, title: string }>;
 };
 
 // TODO: Articleコンポーネントの実装
 export default async function Article({ params }: Props) {
     const props = await params;
     if (blogDatabaseId) {
-        const pages = await getDatabase(blogDatabaseId);
 
         return (
             <Main>
-                {pages.map((page) => {
-                    return (
-                        <h1 key={page.object.id}>{page.object.id}</h1>
-                    );
-                })}
+                <h1>{props.title}</h1>
             </Main>
         )
     } else {
@@ -28,12 +26,14 @@ export default async function Article({ params }: Props) {
     }
 }
 
+
 export async function generateStaticParams() {
     if (blogDatabaseId) {
         const pages = await getDatabase(blogDatabaseId);
         return pages.map((page) => {
             return {
                 id: page.object.id,
+                title: "タイトルです"
             }
         })
     } else {
