@@ -21,7 +21,7 @@ export default async function Article({ params }: Props) {
     } else {
         return (
             <Main>
-                <h1>Article {props.id}</h1>
+                <h1>ページが存在しません</h1>
             </Main>
         )
     }

@@ -1,5 +1,5 @@
 import { Client } from "@notionhq/client";
-import { DatabaseObjectResponse, PageObjectResponse, PartialDatabaseObjectResponse, PartialPageObjectResponse, QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
+import { BlockObjectResponse, DatabaseObjectResponse, PageObjectResponse, PartialBlockObjectResponse, PartialDatabaseObjectResponse, PartialPageObjectResponse, QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 
 const notion = new Client({
     auth: process.env.NOTION_API_KEY,
@@ -25,6 +25,27 @@ export type ExPartialDatabaseObjectResponse = {
 export type ExDatabaseObjectResponse = {
     type: "DatabaseObjectResponse",
     object: DatabaseObjectResponse,
+}
+
+export type ExPartialBlockObjectResponse = {
+    type: "PartialBlockObjectResponse",
+    object: PartialBlockObjectResponse,
+}
+
+export type ExBlockObjectResponse = {
+    type: "BlockObjectResponse",
+    object: BlockObjectResponse | BulletedListBlockObjectResponse | NumberedListBlockObjectResponse,
+    children: (ExPartialBlockObjectResponse | ExBlockObjectResponse)[],
+}
+
+export type BulletedListBlockObjectResponse = {
+    type: "bulleted_list",
+    has_children: true,
+}
+
+export type NumberedListBlockObjectResponse = {
+    type: "numbered_list",
+    has_children: true,
 }
 
 export const getDatabase = async (databaseId: string): Promise<(ExPageObjectResponse | ExPartialPageObjectResponse | ExPartialDatabaseObjectResponse | ExDatabaseObjectResponse)[]> => {
@@ -94,7 +115,7 @@ export const getPage = async (pageId: string): Promise<ExPageObjectResponse | Ex
     }
 };
 
-export const getPageJson = async (pageId: string): Promise<JSON | null> => {
+export const getPageJson = async (pageId: string): Promise<{ id: string, page: (ExPageObjectResponse | ExPartialPageObjectResponse), blocks: (ExPartialBlockObjectResponse | ExBlockObjectResponse)[] } | null> => {
     try {
         const page = await getPage(pageId);
         if (page?.type === "PageObjectResponse") {
@@ -103,7 +124,11 @@ export const getPageJson = async (pageId: string): Promise<JSON | null> => {
                 const jsonStr = jsonProperty.rich_text.reduce((acc, cur) => acc + cur.plain_text, "");
                 if (jsonStr !== "") {
                     const json = JSON.parse(jsonProperty.rich_text.reduce((acc, cur) => acc + cur.plain_text, ""));
-                    return json;
+                    return {
+                        id: page.object.id,
+                        page: page,
+                        blocks: json,
+                    }
                 }
             }
         }
