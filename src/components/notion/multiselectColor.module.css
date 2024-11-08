@@ -1,0 +1,245 @@
+.false{
+    background-color: rgb(10,10,10);
+}
+
+.blue{
+    background-color: rgb(215,229,238);
+    border: solid;
+    border-color: rgb(215,229,238);
+}
+
+.blueFalse{
+    background-color: rgb(255,255,255);
+    border: solid;
+    border-color: rgb(215,229,238);
+}
+
+.brown{
+    background-color: rgb(236,225,219);
+    border: solid;
+    border-color: rgb(236,225,219);
+}
+
+.brownFalse{
+    background-color: rgb(255,255,255);
+    border: solid;
+    border-color: rgb(236,225,219);
+}
+
+.default{
+    background-color: rgb(241,241,240);
+    border: solid;
+    border-color: rgb(241,241,240);
+}
+
+.defaultFalse{
+    background-color: rgb(255,255,255);
+    border: solid;
+    border-color: rgb(241,241,240);
+}
+
+.gray{
+    background-color: rgb(227,226,224);
+    border: solid;
+    border-color: rgb(227,226,224);
+}
+
+.grayFalse{
+    background-color: rgb(255,255,255);
+    border: solid;
+    border-color: rgb(227,226,224);
+}
+
+.green{
+    background-color: rgb(223,237,221);
+    border: solid;
+    border-color: rgb(223,237,221);
+}
+
+.greenFalse{
+    background-color: rgb(255,255,255);
+    border: solid;
+    border-color: rgb(223,237,221);
+}
+
+.orange{
+    background-color: rgb(246,223,204);
+    border: solid;
+    border-color: rgb(246,223,204);
+}
+
+.orangeFalse{
+    background-color: rgb(255,255,255);
+    border: solid;
+    border-color: rgb(246,223,204);
+}
+
+.pink{
+    background-color: rgb(242,225,233);
+    border: solid;
+    border-color: rgb(242,225,233);
+}
+
+.pinkFalse{
+    background-color: rgb(255,255,255);
+    border: solid;
+    border-color: rgb(242,225,233);
+}
+
+.purple{
+    background-color: rgb(230,223,237);
+    border: solid;
+    border-color: rgb(230,223,237);
+}
+
+.purpleFalse{
+    background-color: rgb(255,255,255);
+    border: solid;
+    border-color: rgb(230,223,237);
+}
+
+.red{
+    background-color: rgb(250,227,222);
+    border: solid;
+    border-color: rgb(250,227,222);
+}
+
+.redFalse{
+    background-color: rgb(255,255,255);
+    border: solid;
+    border-color: rgb(250,227,222);
+}
+
+.yellow{
+    background-color: rgb(250,237,204);
+    border: solid;
+    border-color: rgb(250,237,204);
+}
+
+.yellowFalse{
+    background-color: rgb(255,255,255);
+    border: solid;
+    border-color: rgb(250,237,204);
+}
+
+@media (prefers-color-scheme: dark) {
+    .blue{
+        background-color: rgb(47,68,165);
+        border: solid;
+        border-color: rgb(47,68,165);
+    }
+
+    .blueFalse{
+        background-color: rgb(10,10,10);
+        border: solid;
+        border-color: rgb(47,68,165);
+    }
+    
+    .brown{
+        background-color: rgb(91,61,47);
+        border: solid;
+        border-color: rgb(91,61,47);
+    }
+
+    .brownFalse{
+        background-color: rgb(10,10,10);
+        border: solid;
+        border-color: rgb(91,61,47);
+    }
+    
+    .default{
+        background-color: rgb(55,55,55);
+        border: solid;
+        border-color: rgb(55,55,55);
+    }
+
+    .defaultFalse{
+        background-color: rgb(10,10,10);
+        border: solid;
+        border-color: rgb(55,55,55);
+    }
+    
+    .gray{
+        background-color: rgb(90,90,90);
+        border: solid;
+        border-color: rgb(90,90,90);
+    }
+
+    .grayFalse{
+        background-color: rgb(10,10,10);
+        border: solid;
+        border-color: rgb(90,90,90);
+    }
+
+    .green{
+        background-color: rgb(55,88,65);
+        border: solid;
+        border-color: rgb(55,88,65);
+    }
+
+    .greenFalse{
+        background-color: rgb(10,10,10);
+        border: solid;
+        border-color: rgb(55,88,65);
+    }
+    
+    .orange{
+        background-color: rgb(125,79,39);
+        border: solid;
+        border-color: rgb(125,79,39);
+    }
+
+    .orangeFalse{
+        background-color: rgb(10,10,10);
+        border: solid;
+        border-color: rgb(125,79,39);
+    }
+
+    .pink{
+        background-color: rgb(98,52,75);
+        border: solid;
+        border-color: rgb(98,52,75);
+    }
+
+    .pinkFalse{
+        background-color: rgb(10,10,10);
+        border: solid;
+        border-color: rgb(98,52,75);
+    }
+    
+    .purple{
+        background-color: rgb(69,48,97);
+        border: solid;
+        border-color: rgb(69,48,97);
+    }
+
+    .purpleFalse{
+        background-color: rgb(10,10,10);
+        border: solid;
+        border-color: rgb(69,48,97);
+    }
+    
+    .red{
+        background-color: rgb(103,57,50);
+        border: solid;
+        border-color: rgb(103,57,50);
+    }
+
+    .redFalse{
+        background-color: rgb(10,10,10);
+        border: solid;
+        border-color: rgb(103,57,50);
+    }
+    
+    .yellow{
+        background-color: rgb(131,101,52);
+        border: solid;
+        border-color: rgb(131,101,52);
+    }
+
+    .yellowFalse{
+        background-color: rgb(10,10,10);
+        border: solid;
+        border-color: rgb(131,101,52);
+    }
+}
