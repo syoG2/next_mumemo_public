@@ -2,8 +2,8 @@ import { ExBlockObjectResponse, ExPartialBlockObjectResponse } from "@/component
 import type { ParagraphBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import type { FC } from 'react';
 
-import colorStyles from '@/components/notion/blocks/color.module.css';
 import { Children } from '@/components/notion/children/children';
+import colorStyles from '@/components/notion/color.module.css';
 import { RichText } from '@/components/notion/richText/richText';
 
 type Props = {
