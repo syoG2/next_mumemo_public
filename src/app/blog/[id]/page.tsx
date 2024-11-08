@@ -13,13 +13,15 @@ export default async function Article({ params }: Props) {
     const props = await params;
     if (blogDatabaseId) {
         const pageJson = await getPageJson(props.id);
-        return (
-            <Main>
-                {pageJson?.blocks.map((block) => {
-                    return blockToJsx(block);
-                })}
-            </Main>
-        )
+        if (pageJson?.page.type === "PageObjectResponse" && pageJson.page.object.properties["タイトル"].type === "title") {
+            return (
+                <Main>
+                    {pageJson?.blocks.map((block) => {
+                        return blockToJsx(block);
+                    })}
+                </Main>
+            )
+        }
     } else {
         return (
             <Main>
