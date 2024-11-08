@@ -1,4 +1,4 @@
-import colorStyles from '@/components/notion/blocks/color.module.css';
+import colorStyles from '@/components/notion/color.module.css';
 import type { RichTextItemResponse } from "@notionhq/client/build/src/api-endpoints";
 import 'katex/dist/katex.min.css';
 import Link from 'next/link';
