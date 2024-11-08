@@ -1,4 +1,5 @@
 import { ExBlockObjectResponse, ExPartialBlockObjectResponse } from "@/components/notion/notion";
+import { Paragraph } from "../blocks/paragraph/paragraph";
 
 export function blockToJsx(block: ExPartialBlockObjectResponse | ExBlockObjectResponse) {
     if (block.type === "PartialBlockObjectResponse") {
@@ -27,6 +28,8 @@ export function blockToJsx(block: ExPartialBlockObjectResponse | ExBlockObjectRe
                         </div>
                     </details>
                 )
+            case "paragraph":
+                return <Paragraph block={block.object} nestBlocks={block.children} />
             default:
                 return (
                     <details id={block.object.id}>
