@@ -6,11 +6,38 @@ export function blockToJsx(block: ExPartialBlockObjectResponse | ExBlockObjectRe
     } else {
         switch (block.object.type) {
             case "bulleted_list":
-                return <h1>bulleted_list</h1>
+                return (
+                    <details>
+                        <summary>
+                            {block.object.type ? `'${block.object.type}'には対応していません。` : `blockTypeが存在していません。`}
+                        </summary>
+                        <div>
+                            {JSON.stringify(block)}
+                        </div>
+                    </details>
+                )
             case "numbered_list":
-                return <h1>numbered_list</h1>
+                return (
+                    <details>
+                        <summary>
+                            {block.object.type ? `'${block.object.type}'には対応していません。` : `blockTypeが存在していません。`}
+                        </summary>
+                        <div>
+                            {JSON.stringify(block)}
+                        </div>
+                    </details>
+                )
             default:
-                return <div id={block.object.id}>{block.object.type ? `'${block.object.type}'には対応していません。` : `blockTypeが存在していません。`}</div>
+                return (
+                    <details id={block.object.id}>
+                        <summary>
+                            {block.object.type ? `'${block.object.type}'には対応していません。` : `blockTypeが存在していません。`}
+                        </summary>
+                        <div>
+                            {JSON.stringify(block)}
+                        </div>
+                    </details>
+                )
         }
     }
 }

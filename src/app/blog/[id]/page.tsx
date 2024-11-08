@@ -1,6 +1,6 @@
 import Main from "@/components/layout/main/main";
+import { blockToJsx } from "@/components/notion/blockToJsx/blockToJsx";
 import { blogDatabaseId, getDatabase, getPageJson } from "@/components/notion/notion";
-
 export const revalidate = 86400;
 
 type Props = {
@@ -15,7 +15,9 @@ export default async function Article({ params }: Props) {
         const pageJson = await getPageJson(props.id);
         return (
             <Main>
-                <div>{JSON.stringify(pageJson)}</div>
+                {pageJson?.blocks.map((block) => {
+                    return blockToJsx(block);
+                })}
             </Main>
         )
     } else {
