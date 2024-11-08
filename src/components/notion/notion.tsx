@@ -95,16 +95,21 @@ export const getPage = async (pageId: string): Promise<ExPageObjectResponse | Ex
 };
 
 export const getPageJson = async (pageId: string): Promise<JSON | null> => {
-    const page = await getPage(pageId);
-    if (page?.type === "PageObjectResponse") {
-        const jsonProperty = page.object.properties?.json;
-        if (jsonProperty && jsonProperty.type === 'rich_text') {
-            const jsonStr = jsonProperty.rich_text.reduce((acc, cur) => acc + cur.plain_text, "");
-            if (jsonStr !== "") {
-                const json = JSON.parse(jsonProperty.rich_text.reduce((acc, cur) => acc + cur.plain_text, ""));
-                return json;
+    try {
+        const page = await getPage(pageId);
+        if (page?.type === "PageObjectResponse") {
+            const jsonProperty = page.object.properties?.json;
+            if (jsonProperty && jsonProperty.type === 'rich_text') {
+                const jsonStr = jsonProperty.rich_text.reduce((acc, cur) => acc + cur.plain_text, "");
+                if (jsonStr !== "") {
+                    const json = JSON.parse(jsonProperty.rich_text.reduce((acc, cur) => acc + cur.plain_text, ""));
+                    return json;
+                }
             }
         }
+    } catch (e) {
+        console.error(e);
+        return null;
     }
     return null;
 }

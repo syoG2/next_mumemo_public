@@ -1,4 +1,5 @@
 import layoutStyles from '@/components/layout/layout.module.css'
+import Image from 'next/image'
 import Link from 'next/link'
 import styles from './footer.module.css'
 
@@ -7,10 +8,12 @@ export default function Footer() {
         <footer className={layoutStyles.footer}>
             <div>
                 <Link className={styles.logo} href="/">
-                    <img className={styles.logoImg} src="/mu.svg" alt="logo" />
+                    <div className={styles.logoImg}>
+                        <Image src="/mu.svg" alt="logo" fill />
+                    </div>
                     <div className={styles.logoText}>mumemo</div>
                 </Link>
-                <small className={styles.copyright}>&copy; 2024 syo </small>
+                <div className={styles.copyright}>&copy; 2024 syo </div>
             </div>
         </footer>
     )

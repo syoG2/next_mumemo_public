@@ -8,6 +8,7 @@ type Props = {
 };
 
 // TODO: Articleコンポーネントの実装
+// TODO:クライアントコンポーネントで閲覧数をカウントするためのコンポーネントを作成する
 export default async function Article({ params }: Props) {
     const props = await params;
     if (blogDatabaseId) {
