@@ -3,7 +3,9 @@ import type { RichTextItemResponse } from "@notionhq/client/build/src/api-endpoi
 import 'katex/dist/katex.min.css';
 import Link from 'next/link';
 import type { FC } from 'react';
-import Latex from 'react-latex-next';
+// TODO:react-katexが読み込めなかった件について調べる
+import { InlineMath } from 'react-katex';
+// import Latex from 'react-latex-next';
 import styles from './richText.module.css';
 
 type Props = {
@@ -34,8 +36,8 @@ export const RichText: FC<Props> = ({ text }) => {
                                 {textItem.plain_text}
                             </span>
                         } else if (textItem.type === 'equation') {
-                            // ret = <InlineMath key={index}>{textItem.plain_text}</InlineMath>
-                            ret = <Latex key={index}>${textItem.plain_text}$</Latex>
+                            ret = <InlineMath key={index}>{textItem.plain_text}</InlineMath>
+                            // ret = <Latex key={index}>${textItem.plain_text}$</Latex>
                         } else {
                             ret = <span key={index}></span>
                         }
