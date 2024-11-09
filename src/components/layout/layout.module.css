@@ -24,6 +24,7 @@
     border-radius: 12px;
     padding: 12px;
     box-shadow: var(--shadow);
+    overflow-wrap: break-word;
 }
 
 .onlyMain {
@@ -33,6 +34,7 @@
     border-radius: 12px;
     padding: 12px;
     box-shadow: var(--shadow);
+    overflow-wrap: break-word;
 }
 
 .rside {
@@ -51,6 +53,7 @@
     box-shadow: var(--shadow);
     -ms-overflow-style: none;
     scrollbar-width: none;
+    overflow-wrap: break-word;
 }
 
 .rsideSticky::--webkit-scrollbar {

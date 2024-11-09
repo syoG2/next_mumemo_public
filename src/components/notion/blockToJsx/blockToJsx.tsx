@@ -30,6 +30,9 @@ export function blockToJsx(block: ExPartialBlockObjectResponse | ExBlockObjectRe
                 )
             case "paragraph":
                 return <Paragraph block={block.object} nestBlocks={block.children} />
+            case 'table_of_contents':
+                // table_of_contentsはapiから適切なデータが取得できないため、表示しない
+                return null
             default:
                 return (
                     <details id={block.object.id}>
