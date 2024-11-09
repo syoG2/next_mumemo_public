@@ -3,9 +3,7 @@ import type { RichTextItemResponse } from "@notionhq/client/build/src/api-endpoi
 import 'katex/dist/katex.min.css';
 import Link from 'next/link';
 import type { FC } from 'react';
-// TODO:react-katexが読み込めなかった件について調べる
 import { InlineMath } from 'react-katex';
-// import Latex from 'react-latex-next';
 import styles from './richText.module.css';
 
 type Props = {

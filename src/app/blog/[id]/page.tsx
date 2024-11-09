@@ -13,7 +13,6 @@ type Props = {
     params: Promise<{ id: string }>;
 };
 
-// TODO: Articleコンポーネントの実装
 // TODO:ページが存在しない場合のエラーページを作成する
 export default async function Article({ params }: Props) {
     const props = await params;
