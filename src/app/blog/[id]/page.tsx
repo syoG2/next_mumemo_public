@@ -1,5 +1,6 @@
 import Main from "@/components/layout/main/main";
 import { blockToJsx } from "@/components/notion/blockToJsx/blockToJsx";
+import multiselectColorStyles from "@/components/notion/multiselectColor.module.css";
 import { blogDatabaseId, getDatabase, getPageJson } from "@/components/notion/notion";
 import { RichText } from "@/components/notion/richText/richText";
 import Link from 'next/link';
@@ -47,6 +48,16 @@ export default async function Article({ params }: Props) {
                         return <></>
                 }
             })
+            const options: Intl.DateTimeFormatOptions = {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                // hour: '2-digit',
+                // minute: '2-digit',
+                // second: '2-digit',
+                timeZone: 'Asia/Tokyo'
+            };
+            const createdTime = new Date(pageJson.page.object.created_time).toLocaleDateString('ja-JP', options);
 
             return (
                 <>
@@ -54,6 +65,24 @@ export default async function Article({ params }: Props) {
                         <h1>
                             <RichText text={pageJson.page.object.properties["タイトル"].title} />
                         </h1>
+                        <div>作成日時:{createdTime}</div>
+                        <div className={styles.tags}>
+                            {
+                                pageJson.page.object.properties["タグ"]?.type === "multi_select" ?
+                                    pageJson.page.object.properties["タグ"].multi_select.map((tag) => {
+                                        return (
+                                            <div
+                                                key={tag.id}
+                                                className={[styles.tag, multiselectColorStyles[tag.color]].join(" ")}
+                                            >
+                                                {tag.name}
+                                            </div>
+                                        )
+                                    }) : <></>
+                            }
+                        </div>
+                        <Link href={`/`}>ホームへ戻る</Link>
+                        <hr />
                         {pageJson?.blocks.map((block) => {
                             return blockToJsx(block);
                         })}

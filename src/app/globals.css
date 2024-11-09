@@ -97,3 +97,7 @@ body {
     height: 100%;
     max-width: 100vw;
 }
+
+a {
+    color: #aaaaaa;
+}
