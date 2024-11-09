@@ -5,8 +5,8 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     if (id === null) {
-        return NextResponse.json("id is required");
+        return NextResponse.json({ message: "id is required" });
     }
     await incrementPageView(id);
-    return NextResponse.json({ id });
+    return NextResponse.json({ id: id });
 }

@@ -2,10 +2,16 @@
 
 "use client";
 import path from "path";
+import { useEffect } from "react";
 
 const deployUrl = process.env.NEXT_PUBLIC_DEPLOY_URL;
 
 export default function ViewCounter({ pageId }: { pageId: string }) {
-    fetch(path.join(`${deployUrl}`, `/api/viewcount?id=${pageId}`))
+    useEffect(() => {
+        const fetchData = async () => {
+            await fetch(path.join(`${deployUrl}`, `/api/viewcount?id=${pageId}`));
+        };
+        fetchData();
+    }, [pageId]);
     return null
 }
