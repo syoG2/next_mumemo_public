@@ -4,8 +4,8 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
-    if (!id) {
-        return NextResponse.json({ error: 'ID is required' }, { status: 400 });
+    if (id === null) {
+        return NextResponse.json("id is required");
     }
     await incrementPageView(id);
     return NextResponse.json({ id });
