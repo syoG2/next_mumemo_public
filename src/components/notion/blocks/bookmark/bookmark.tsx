@@ -63,11 +63,11 @@ export const Bookmark: FC<Props> = ({ block, nestBlocks }) => {
             <div className={styles.title}>{data.title}</div>
             <div className={styles.description}>{data.description}</div>
             <div className={styles.url}>
-              <img className={styles.favicon} src={`https://www.google.com/s2/favicons?domain=${block.bookmark.url}`} />
+              <img className={styles.favicon} src={`https://www.google.com/s2/favicons?domain=${block.bookmark.url}`} alt="リンク先のfavicon" />
               {block.bookmark.url}
             </div>
           </div>
-          <img className={styles.linkImage} src={data.image} />
+          <img className={styles.linkImage} src={data.image} alt="リンク先の画像" />
         </Link>
         {block.bookmark.caption.length !== 0 &&
           <div className={styles.caption}>
