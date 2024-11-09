@@ -37,7 +37,6 @@ export const RichText: FC<Props> = ({ text }) => {
                             </span>
                         } else if (textItem.type === 'equation') {
                             ret = <InlineMath key={index}>{textItem.plain_text}</InlineMath>
-                            // ret = <Latex key={index}>${textItem.plain_text}$</Latex>
                         } else {
                             ret = <span key={index}></span>
                         }
