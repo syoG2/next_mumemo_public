@@ -1,153 +1,153 @@
 .blue {
-    color: rgb(72,124,163);
+    color: rgb(72, 124, 163);
 }
 
-.blue_background{
-    background-color: rgb(233,243,247);
+.blue_background {
+    background-color: rgb(233, 243, 247);
 }
 
-.brown{
-    color: rgb(151,109,87);
+.brown {
+    color: rgb(151, 109, 87);
 }
 
-.brown_background{
-    background-color: rgb(243,238,238);
+.brown_background {
+    background-color: rgb(243, 238, 238);
 }
 
-.default{
-    color: rgb(60,58,53);
+.default {
+    color: rgb(60, 58, 53);
 }
 
-.gray{
-    color: rgb(120,119,116);
+.gray {
+    color: rgb(120, 119, 116);
 }
 
-.gray_background{
-    background-color: rgb(241,241,239);
+.gray_background {
+    background-color: rgb(241, 241, 239);
 }
 
-.green{
-    color: rgb(84,129,100);
+.green {
+    color: rgb(84, 129, 100);
 }
 
-.green_background{
-    background-color: rgb(238,243,237);
+.green_background {
+    background-color: rgb(238, 243, 237);
 }
 
-.orange{
-    color: rgb(204,120,47);
+.orange {
+    color: rgb(204, 120, 47);
 }
 
-.orange_background{
-    background-color: rgb(248,236,223);
+.orange_background {
+    background-color: rgb(248, 236, 223);
 }
 
-.yellow{
-    color: rgb(194,147,67);
+.yellow {
+    color: rgb(194, 147, 67);
 }
 
-.pink{
-    color: rgb(180,85,137);
+.pink {
+    color: rgb(180, 85, 137);
 }
 
-.pink_background{
-    background-color: rgb(249,242,245);
+.pink_background {
+    background-color: rgb(249, 242, 245);
 }
 
-.purple{
-    color: rgb(139,104,171);
+.purple {
+    color: rgb(139, 104, 171);
 }
 
-.purple_background{
-    background-color: rgb(246,243,248);
+.purple_background {
+    background-color: rgb(246, 243, 248);
 }
 
-.red{
-    color: rgb(196,86,78);
+.red {
+    color: rgb(196, 86, 78);
 }
 
-.red_background{
-    background-color: rgb(250,236,236);
+.red_background {
+    background-color: rgb(250, 236, 236);
 }
 
-.yellow_background{
-    background-color: rgb(250,243,221);
+.yellow_background {
+    background-color: rgb(250, 243, 221);
 }
 
 @media (prefers-color-scheme: dark) {
     .blue {
-        color: rgb(103,134,196);
+        color: rgb(103, 134, 196);
     }
-    
-    .blue_background{
-        background-color: rgb(31,40,45);
+
+    .blue_background {
+        background-color: rgb(31, 40, 45);
     }
-    
-    .brown{
-        color: rgb(178,134,114);
+
+    .brown {
+        color: rgb(178, 134, 114);
     }
-    
-    .brown_background{
-        background-color: rgb(70,51,42);
+
+    .brown_background {
+        background-color: rgb(70, 51, 42);
     }
-    
-    .default{
-        color: rgb(212,212,212);
+
+    .default {
+        color: rgb(212, 212, 212);
     }
-    
-    .gray{
-        color: rgb(120,119,116);
+
+    .gray {
+        color: rgb(120, 119, 116);
     }
-    
-    .gray_background{
-        background-color: rgb(37,37,37);
+
+    .gray_background {
+        background-color: rgb(37, 37, 37);
     }
-    
-    .green{
-        color: rgb(100,155,116);
+
+    .green {
+        color: rgb(100, 155, 116);
     }
-    
-    .green_background{
-        background-color: rgb(36,43,38);
+
+    .green_background {
+        background-color: rgb(36, 43, 38);
     }
-    
-    .orange{
-        color: rgb(188,127,81);
+
+    .orange {
+        color: rgb(188, 127, 81);
     }
-    
-    .orange_background{
-        background-color: rgb(54,41,31);
+
+    .orange_background {
+        background-color: rgb(54, 41, 31);
     }
-    
-    .yellow{
-        color: rgb(193,154,85);
+
+    .yellow {
+        color: rgb(193, 154, 85);
     }
-    
-    .pink{
-        color: rgb(192,95,147);
+
+    .pink {
+        color: rgb(192, 95, 147);
     }
-    
-    .pink_background{
-        background-color: rgb(46,35,40);
+
+    .pink_background {
+        background-color: rgb(46, 35, 40);
     }
-    
-    .purple{
-        color: rgb(149,106,205);
+
+    .purple {
+        color: rgb(149, 106, 205);
     }
-    
-    .purple_background{
-        background-color: rgb(42,36,48);
+
+    .purple_background {
+        background-color: rgb(42, 36, 48);
     }
-    
-    .red{
-        color: rgb(205,93,86);
+
+    .red {
+        color: rgb(205, 93, 86);
     }
-    
-    .red_background{
-        background-color: rgb(51,57,35);
+
+    .red_background {
+        background-color: rgb(77, 48, 43);
     }
-    
-    .yellow_background{
-        background-color: rgb(55,46,32);
+
+    .yellow_background {
+        background-color: rgb(55, 46, 32);
     }
 }

@@ -14,6 +14,10 @@ import { NotionImage } from "../blocks/image/image";
 import { NumberedList } from "../blocks/numberedList/numberedList";
 import { NumberedListItem } from "../blocks/numberedListItem/numberedListItem";
 import { Paragraph } from "../blocks/paragraph/paragraph";
+import { Quote } from "../blocks/quote/quote";
+import { SyncedBlock } from "../blocks/syncedBlock/syncedBlock";
+import { Table } from "../blocks/table/table";
+import { Todo } from "../blocks/todo/todo";
 import { Toggle } from "../blocks/toggle/toggle";
 
 export function blockToJsx(block: ExPartialBlockObjectResponse | ExBlockObjectResponse) {
@@ -60,6 +64,14 @@ export function blockToJsx(block: ExPartialBlockObjectResponse | ExBlockObjectRe
                 return <NumberedListItem block={block.object} nestBlocks={block.children} />
             case "paragraph":
                 return <Paragraph block={block.object} nestBlocks={block.children} />
+            case "quote":
+                return <Quote block={block.object} nestBlocks={block.children} />
+            case "synced_block":
+                return <SyncedBlock block={block.object} nestBlocks={block.children} />
+            case "table":
+                return <Table block={block.object} nestBlocks={block.children} />
+            case "to_do":
+                return <Todo block={block.object} nestBlocks={block.children} />
             case "toggle":
                 return <Toggle block={block.object} nestBlocks={block.children} />
             case 'table_of_contents':
