@@ -1,6 +1,8 @@
 import { ExBlockObjectResponse, ExPartialBlockObjectResponse } from "@/components/notion/notion";
+import { Bookmark } from "../blocks/bookmark/bookmark";
 import { BulletedList } from "../blocks/bulletedList/bulletedList";
 import { BulletedListItem } from "../blocks/bulletedListItem/bulletedListItem";
+import { Code } from "../blocks/code/code";
 import { Heading1 } from "../blocks/heading1/heading1";
 import { Heading2 } from "../blocks/heading2/heading2";
 import { Paragraph } from "../blocks/paragraph/paragraph";
@@ -11,10 +13,14 @@ export function blockToJsx(block: ExPartialBlockObjectResponse | ExBlockObjectRe
         return <div>PartialBlockObjectResponse</div>
     } else {
         switch (block.object.type) {
+            case "bookmark":
+                return <Bookmark block={block.object} nestBlocks={block.children} />
             case "bulleted_list":
                 return <BulletedList block={block.object} nestBlocks={block.children} />
             case "bulleted_list_item":
                 return <BulletedListItem block={block.object} nestBlocks={block.children} />
+            case "code":
+                return <Code block={block.object} nestBlocks={block.children} />
             case "heading_1":
                 return <Heading1 block={block.object} nestBlocks={block.children} />
             case "heading_2":

@@ -161,3 +161,37 @@ export const incrementPageView = async (pageId: string): Promise<void> => {
         }
     }
 }
+
+export const getBlock = async (blockId: string): Promise<(ExPartialBlockObjectResponse | ExBlockObjectResponse)> => {
+    const response = await notion.blocks.retrieve({
+        block_id: blockId,
+    })
+    let blockObject: (ExPartialBlockObjectResponse | ExBlockObjectResponse);
+    if ('type' in response) {
+        let children: (ExPartialBlockObjectResponse | ExBlockObjectResponse)[] = [];
+        blockObject = {
+            type: "BlockObjectResponse",
+            object: response,
+            children: children,
+        };
+    } else {
+        blockObject = {
+            type: "PartialBlockObjectResponse",
+            object: response,
+        };
+    }
+    return blockObject;
+}
+
+export const getImagePath = async (imageBlockId: string): Promise<string> => {
+    try {
+        const response = await getBlock(imageBlockId);
+        if (response.type === 'BlockObjectResponse' && response.object.type === 'image' && response.object.image.type === 'file') {
+            return response.object.image.file.url;
+        }
+    } catch (error) {
+        console.log(error);
+        return "";
+    }
+    return "";
+}
