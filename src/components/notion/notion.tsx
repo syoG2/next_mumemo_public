@@ -1,7 +1,7 @@
 import { Client } from "@notionhq/client";
 import { BlockObjectResponse, DatabaseObjectResponse, PageObjectResponse, PartialBlockObjectResponse, PartialDatabaseObjectResponse, PartialPageObjectResponse, QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 
-const notion = new Client({
+export const notion = new Client({
     auth: process.env.NOTION_API_KEY,
 })
 
@@ -137,4 +137,27 @@ export const getPageJson = async (pageId: string): Promise<{ id: string, page: (
         return null;
     }
     return null;
+}
+
+export const incrementPageView = async (pageId: string): Promise<void> => {
+    const page = await getPage(pageId);
+    if (page === null) {
+        return;
+    }
+    if (page.type === "PageObjectResponse") {
+        const views = page.object.properties?.閲覧数?.type === "number" ? page.object.properties.閲覧数.number : null;
+        try {
+            await notion.pages.update({
+                page_id: pageId,
+                properties: {
+                    "閲覧数": {
+                        type: "number",
+                        number: views ? views + 1 : 1,
+                    }
+                }
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
 }
