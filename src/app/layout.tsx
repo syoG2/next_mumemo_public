@@ -10,6 +10,7 @@ import "./globals.css";
 const siteName = 'mumemo';
 const description = 'Notion + Vercelで開発した個人サイト.情報技術を中心に雑多なことを書いていきます.';
 const url = 'https://mumemo.vercel.app'
+
 export const metadata: Metadata = {
   generator: 'Next.js',
   applicationName: 'mumemo',
