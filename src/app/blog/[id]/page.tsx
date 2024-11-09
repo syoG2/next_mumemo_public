@@ -1,6 +1,7 @@
 import Main from "@/components/layout/main/main";
 import { blockToJsx } from "@/components/notion/blockToJsx/blockToJsx";
 import { blogDatabaseId, getDatabase, getPageJson } from "@/components/notion/notion";
+import ViewCounter from "./viewCounter";
 export const revalidate = 86400;
 
 type Props = {
@@ -15,11 +16,14 @@ export default async function Article({ params }: Props) {
         const pageJson = await getPageJson(props.id);
         if (pageJson?.page.type === "PageObjectResponse" && pageJson.page.object.properties["タイトル"].type === "title") {
             return (
-                <Main>
-                    {pageJson?.blocks.map((block) => {
-                        return blockToJsx(block);
-                    })}
-                </Main>
+                <>
+                    <Main>
+                        {pageJson?.blocks.map((block) => {
+                            return blockToJsx(block);
+                        })}
+                    </Main>
+                    <ViewCounter pageId={props.id} />
+                </>
             )
         }
     }
