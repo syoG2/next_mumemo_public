@@ -57,6 +57,20 @@
     display: none;
 }
 
+.summary {
+    display: flex;
+    align-items: center;
+}
+
+.triangle {
+    transition: transform 0.4s;
+    transform: rotate(-90deg);
+}
+
+details[open] .triangle {
+    transform: rotate(0deg);
+}
+
 .footer {
     grid-row: -2/-1;
     grid-column: 1/-1;

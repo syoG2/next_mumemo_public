@@ -12,11 +12,16 @@ export default function Main({ children, rside = null }: { children: React.React
                 <main className={layoutStyles.main}>
                     {children}
                 </main>
-                <div className={layoutStyles.rside}>
-                    <div className={layoutStyles.rsideSticky}>
+                <nav className={layoutStyles.rside}>
+                    <details className={layoutStyles.rsideSticky}>
+                        <summary className={layoutStyles.summary}>
+                            <span className={layoutStyles.triangle}>▼</span>
+                            <h3>目次</h3>
+                        </summary>
+                        <hr />
                         {rside}
-                    </div>
-                </div>
+                    </details>
+                </nav>
             </>
         )
     }
