@@ -1,0 +1,7 @@
+.columnList{
+    display: flex;
+}
+
+.column{
+    flex: 1;
+}

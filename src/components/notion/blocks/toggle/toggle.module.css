@@ -12,6 +12,6 @@
     transform: rotate(-90deg);
 }
 
-details[open] .triangle {
+details[open]>summary>.triangle {
     transform: rotate(0deg);
 }
