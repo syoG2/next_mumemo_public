@@ -17,7 +17,6 @@ type Props = {
 const fetcher = (url: string): Promise<any> => {
   return fetch(url).then(res => res.json());
 }
-
 export const Bookmark: FC<Props> = ({ block, nestBlocks }) => {
   const { data, error, isLoading } = useSWR<{ title: string, description: string, image: string }>(path.join(`/api/bookmark?url=${block.bookmark.url}`), fetcher);
   if (isLoading) {
