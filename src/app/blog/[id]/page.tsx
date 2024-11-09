@@ -1,7 +1,6 @@
 import Main from "@/components/layout/main/main";
 import { blockToJsx } from "@/components/notion/blockToJsx/blockToJsx";
 import { blogDatabaseId, getDatabase, getPageJson } from "@/components/notion/notion";
-import ViewCounter from "./viewCounter";
 export const revalidate = 86400;
 
 type Props = {
@@ -22,7 +21,7 @@ export default async function Article({ params }: Props) {
                             return blockToJsx(block);
                         })}
                     </Main>
-                    <ViewCounter pageId={props.id} />
+                    {/* <ViewCounter pageId={props.id} /> */}
                 </>
             )
         }
