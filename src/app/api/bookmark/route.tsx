@@ -26,7 +26,7 @@ const fetchOGPData = (url: string): Promise<OGP> => {
         image: "",
       }
       for (let i = 0; i < metas.length; i++) {
-        let pro = metas[i].getAttribute("property");
+        const pro = metas[i].getAttribute("property");
         if (typeof pro == "string") {
           if (ogpData.title === "" && pro.match("og:title")) {
             ogpData.title = metas[i].getAttribute("content") ?? "";

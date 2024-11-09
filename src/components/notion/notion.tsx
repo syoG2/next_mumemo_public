@@ -168,7 +168,7 @@ export const getBlock = async (blockId: string): Promise<(ExPartialBlockObjectRe
     })
     let blockObject: (ExPartialBlockObjectResponse | ExBlockObjectResponse);
     if ('type' in response) {
-        let children: (ExPartialBlockObjectResponse | ExBlockObjectResponse)[] = [];
+        const children: (ExPartialBlockObjectResponse | ExBlockObjectResponse)[] = [];
         blockObject = {
             type: "BlockObjectResponse",
             object: response,
