@@ -8,7 +8,7 @@ type Props = {
 };
 
 // TODO: Articleコンポーネントの実装
-// TODO:クライアントコンポーネントで閲覧数をカウントするためのコンポーネントを作成する
+// TODO:ページが存在しない場合のエラーページを作成する
 export default async function Article({ params }: Props) {
     const props = await params;
     if (blogDatabaseId) {
@@ -22,13 +22,13 @@ export default async function Article({ params }: Props) {
                 </Main>
             )
         }
-    } else {
-        return (
-            <Main>
-                <h1>ページが存在しません</h1>
-            </Main>
-        )
     }
+
+    return (
+        <Main>
+            <div>ページが存在しません</div>
+        </Main>
+    )
 }
 
 
