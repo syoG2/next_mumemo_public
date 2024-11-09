@@ -1,0 +1,17 @@
+.toggle {
+    padding: 5px;
+}
+
+.toggleTitle {
+    display: flex;
+    align-items: center;
+}
+
+.triangle {
+    transition: transform 0.4s;
+    transform: rotate(-90deg);
+}
+
+details[open] .triangle {
+    transform: rotate(0deg);
+}
