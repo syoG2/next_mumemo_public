@@ -28,23 +28,24 @@ function updateBlog() {
     }
     SpreadsheetApp.flush();
 
-    const lastEditedTime = PropertiesService.getScriptProperties().getProperty('LAST_EDITED_TIME');
+    // const lastEditedTime = PropertiesService.getScriptProperties().getProperty('LAST_EDITED_TIME');
     const filter = {
         "filter": {
-            "property": "最終更新日時",
-            "date": {
-                "after": lastEditedTime
+            "property": "更新",
+            "checkbox": {
+                "equals": false
             }
         }
     }
     const pages = getDatabase(NOTION_BLOG_DATABASE_ID, filter)
     lastRow = sheet.getLastRow();
-    let newLastEditedTime = lastEditedTime;
+    // let newLastEditedTime = lastEditedTime;
     pages.map((page) => {
-        if (page.object.last_edited_time > newLastEditedTime) {
-            newLastEditedTime = page.object.last_edited_time;
-        }
-        if (page.object.id !== pageId) {
+        // if (page.object.last_edited_time > newLastEditedTime) {
+        //     newLastEditedTime = page.object.last_edited_time;
+        // }
+
+        if ((lastRow <= 0 || sheet.getRange(1, 1, lastRow, 1).getValues().flat().includes(page.object.id) === false) && page.object.id !== pageId) {
             sheet.getRange(lastRow + 1, 1).setValue(page.object.id);
             lastRow += 1;
         }
@@ -52,7 +53,7 @@ function updateBlog() {
     // UrlFetchApp.fetch(`https://mumemo.vercel.app/api/revalidate?path=/`);
     // Utilities.sleep(11000);
     // UrlFetchApp.fetch(`https://mumemo.vercel.app/`);
-    PropertiesService.getScriptProperties().setProperty("LAST_EDITED_TIME", newLastEditedTime);
+    // PropertiesService.getScriptProperties().setProperty("LAST_EDITED_TIME", newLastEditedTime);
 }
 
 function getDatabase(databaseId, filter) {
@@ -265,6 +266,9 @@ function setBlocks(pageId, blocks) {
             "json": {
                 "rich_text": splitedBlocks
             },
+            "更新": {
+                "checkbox": true
+            }
         }
     };
     let opts = {

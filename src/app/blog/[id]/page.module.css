@@ -1,0 +1,30 @@
+.nav {
+    color: var(--color);
+    text-decoration: none;
+}
+
+.nav:hover {
+    color: var(--color);
+    text-decoration: underline;
+}
+
+.navH1 {
+    font-size: large;
+    font-weight: bold;
+}
+
+.navH2 {
+    padding-left: calc(100%/12);
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+}
+
+.tag {
+    padding: 3px;
+    margin: 3px;
+    border-radius: 6px;
+}

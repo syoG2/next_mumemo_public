@@ -1,6 +1,5 @@
-// TODO:クライアントコンポーネントで閲覧数をカウントするためのコンポーネントを作成する
-
 "use client";
+
 import path from "path";
 import { useEffect } from "react";
 
