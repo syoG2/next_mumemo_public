@@ -86,6 +86,7 @@ export default async function Article({ params }: Props) {
                         {pageJson?.blocks.map((block) => {
                             return blockToJsx(block);
                         })}
+                        <Link href={`#header`}>一番上へ</Link>
                     </Main>
                     <ViewCounter pageId={props.id} />
                 </>
