@@ -1,5 +1,5 @@
 import { Client } from "@notionhq/client";
-import { BlockObjectResponse, DatabaseObjectResponse, PageObjectResponse, PartialBlockObjectResponse, PartialDatabaseObjectResponse, PartialPageObjectResponse, QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
+import { BlockObjectResponse, DatabaseObjectResponse, PageObjectResponse, PartialBlockObjectResponse, PartialDatabaseObjectResponse, PartialPageObjectResponse, QueryDatabaseParameters, QueryDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
 
 export const notion = new Client({
     auth: process.env.NOTION_API_KEY,
@@ -48,17 +48,17 @@ export type NumberedListBlockObjectResponse = {
     has_children: true,
 }
 
-export const getDatabase = async (databaseId: string): Promise<(ExPageObjectResponse | ExPartialPageObjectResponse | ExPartialDatabaseObjectResponse | ExDatabaseObjectResponse)[]> => {
+export const getDatabase = async (databaseId: string, param: QueryDatabaseParameters = {
+    database_id: databaseId,
+    filter: {
+        property: "公開状態",
+        select: {
+            equals: "公開"
+        }
+    },
+}): Promise<(ExPageObjectResponse | ExPartialPageObjectResponse | ExPartialDatabaseObjectResponse | ExDatabaseObjectResponse)[]> => {
     try {
-        const response: QueryDatabaseResponse = await notion.databases.query({
-            database_id: databaseId,
-            filter: {
-                property: "公開状態",
-                select: {
-                    equals: "公開"
-                }
-            },
-        });
+        const response: QueryDatabaseResponse = await notion.databases.query(param);
 
         return response.results.map((result) => {
             if (result.object === 'page') {
