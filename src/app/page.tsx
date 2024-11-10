@@ -37,7 +37,7 @@ export default function Home({ timeSortedPages, viewsSortedPages }: { timeSorted
   );
 }
 
-export const generateStaticProps = async () => {
+export const getStaticProps = async () => {
   const timeSortedParam = {
     database_id: blogDatabaseId,
     sorts: [
