@@ -1,11 +1,15 @@
 import { ArticleCard } from "@/components/articleCard/articleCard";
 import Main from "@/components/layout/main/main";
 import { blogDatabaseId, getDatabase } from "@/components/notion/notion";
+import useSWR from "swr";
 import styles from "./page.module.css";
 
 // TODO: revalidateの使い方が正しいか調べる
 export const revalidate = 86400;
 
+const fetcher = async (param: any) => {
+  return await getDatabase(param);
+};
 
 // TODO:検索用のページを作る
 export default async function Home() {
@@ -24,7 +28,6 @@ export default async function Home() {
       }
     },
   }
-  const timeSortedPages = await getDatabase(timeSortedParam);
 
   const viewsSortedParam = {
     database_id: blogDatabaseId,
@@ -41,11 +44,16 @@ export default async function Home() {
       }
     },
   }
-  const viewsSortedPages = await getDatabase(viewsSortedParam);
+
+  const { data: timeSortedPages, error: timeSortedError } = useSWR(timeSortedParam, fetcher, { revalidateOnFocus: false, dedupingInterval: revalidate });
+  const { data: viewsSortedPages, error: viewsSortedError } = useSWR(viewsSortedParam, fetcher, { revalidateOnFocus: false, dedupingInterval: revalidate });
+
+  if (timeSortedError || viewsSortedError) return <div>Failed to load</div>;
+  if (!timeSortedPages || !viewsSortedPages) return <div>Loading...</div>;
 
   return (
     <Main>
-      <h2>最近の記事</h2>
+      <h2>作成日順</h2>
       <div className={styles.articleCards}>
         {timeSortedPages.map((page) => {
           if (page.type === "PageObjectResponse") {
