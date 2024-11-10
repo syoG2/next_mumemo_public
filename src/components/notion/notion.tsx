@@ -5,7 +5,7 @@ export const notion = new Client({
     auth: process.env.NOTION_API_KEY,
 })
 
-export const blogDatabaseId = process.env.NOTION_BLOG_DATABASE_ID;
+export const blogDatabaseId = process.env.NOTION_BLOG_DATABASE_ID ? process.env.NOTION_BLOG_DATABASE_ID : "";
 
 export type ExPageObjectResponse = {
     type: "PageObjectResponse",
@@ -48,8 +48,8 @@ export type NumberedListBlockObjectResponse = {
     has_children: true,
 }
 
-export const getDatabase = async (databaseId: string, param: QueryDatabaseParameters = {
-    database_id: databaseId,
+export const getDatabase = async (param: QueryDatabaseParameters = {
+    database_id: blogDatabaseId,
     filter: {
         property: "公開状態",
         select: {
