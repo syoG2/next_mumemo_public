@@ -1,62 +1,55 @@
 import { ArticleCard } from "@/components/articleCard/articleCard";
 import Main from "@/components/layout/main/main";
 import { blogDatabaseId, getDatabase } from "@/components/notion/notion";
-import { unstable_cache } from "next/cache";
+import { QueryDatabaseParameters } from "@notionhq/client/build/src/api-endpoints";
+import { cache } from "react";
 import styles from "./page.module.css";
 
 // TODO: revalidateの使い方が正しいか調べる
 export const revalidate = 86400;
 
-const getTimeSortedPages = unstable_cache(
-  async () => {
-    const timeSortedParam = {
-      database_id: blogDatabaseId,
-      sorts: [
-        {
-          timestamp: "created_time" as const,
-          direction: "descending" as const,
-        }
-      ],
-      filter: {
-        property: "公開状態",
-        select: {
-          equals: "公開"
-        }
-      },
-    }
-    return await getDatabase(timeSortedParam);
-  },
-  [],
-  { revalidate: revalidate, tags: [] }
-)
+const getPages = cache(
+  async (params: QueryDatabaseParameters) => {
 
-const getViewsSortedPages = unstable_cache(
-  async () => {
-    const viewsSortedParam = {
-      database_id: blogDatabaseId,
-      sorts: [
-        {
-          property: "閲覧数",
-          direction: "descending" as const,
-        }
-      ],
-      filter: {
-        property: "公開状態",
-        select: {
-          equals: "公開"
-        }
-      },
-    }
-    return await getDatabase(viewsSortedParam);
+    return await getDatabase(params);
   },
-  [],
-  { revalidate: revalidate, tags: [] }
 )
 
 // TODO:検索用のページを作る
 export default async function Home() {
-  const timeSortedPages = await getTimeSortedPages();
-  const viewsSortedPages = await getViewsSortedPages();
+  const timeSortedParam = {
+    database_id: blogDatabaseId,
+    sorts: [
+      {
+        timestamp: "created_time" as const,
+        direction: "descending" as const,
+      }
+    ],
+    filter: {
+      property: "公開状態",
+      select: {
+        equals: "公開"
+      }
+    },
+  }
+  const timeSortedPages = await getPages(timeSortedParam);
+
+  const viewsSortedParam = {
+    database_id: blogDatabaseId,
+    sorts: [
+      {
+        property: "閲覧数",
+        direction: "descending" as const,
+      }
+    ],
+    filter: {
+      property: "公開状態",
+      select: {
+        equals: "公開"
+      }
+    },
+  }
+  const viewsSortedPages = await getPages(viewsSortedParam);
 
 
   return (
