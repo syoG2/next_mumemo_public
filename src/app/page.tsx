@@ -14,8 +14,8 @@ export default async function Home() {
     database_id: blogDatabaseId,
     sorts: [
       {
-        timestamp: "created_time" as "created_time",
-        direction: "descending" as "descending"
+        timestamp: "created_time" as const,
+        direction: "descending" as const,
       }
     ],
     filter: {
@@ -32,7 +32,7 @@ export default async function Home() {
     sorts: [
       {
         property: "閲覧数",
-        direction: "descending" as "descending"
+        direction: "descending" as const,
       }
     ],
     filter: {
