@@ -12,7 +12,7 @@ const fetcher = async (param: any) => {
 };
 
 // TODO:検索用のページを作る
-export default async function Home() {
+export default function Home() {
   const timeSortedParam = {
     database_id: blogDatabaseId,
     sorts: [
