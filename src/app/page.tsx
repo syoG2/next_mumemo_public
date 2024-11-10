@@ -27,7 +27,7 @@ export default async function Home() {
   }
   const timeSortedPages = await getDatabase(timeSortedParam);
 
-  let viewsSortedParam = {
+  const viewsSortedParam = {
     database_id: blogDatabaseId,
     sorts: [
       {
