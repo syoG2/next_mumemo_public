@@ -22,14 +22,14 @@
     --main-bg-color: #eeeeee;
     --color: #000000;
     --caret-color: #000000;
-    --shadow: 0px 2px 2px #333333;
+    --shadow: 2px 2px 2px #333333;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         --bg-color: #222222;
         --main-bg-color: #333333;
-        --shadow: 0px 2px 2px #000000;
+        --shadow: 2px 2px 2px #000000;
         --color: #ffffff;
         --caret-color: #ffffff;
     }
