@@ -4,10 +4,12 @@ import { ExDatabaseObjectResponse, ExPageObjectResponse, ExPartialDatabaseObject
 import Link from 'next/link';
 import path from 'path';
 import type { FC } from 'react';
-import useSWR from 'swr';
+// import useSWR from 'swr';
 import multiselectColorStyles from '../notion/multiselectColor.module.css';
 import { RichText } from '../notion/richText/richText';
 import styles from './articleCard.module.css';
+
+// TODO: 画像を表示する
 
 type Props = {
     page: ExPageObjectResponse | ExPartialPageObjectResponse | ExPartialDatabaseObjectResponse | ExDatabaseObjectResponse,
@@ -19,7 +21,7 @@ const fetcher = (url: string): Promise<any> => {
 
 export const ArticleCard: FC<Props> = ({ page }) => {
     if (page.type === 'PageObjectResponse') {
-        const { data, error, isLoading } = useSWR<{ url: string }>(path.join(`/api/image?blockId=${page.object.id}`), fetcher);
+        // const { data, error, isLoading } = useSWR<{ url: string }>(path.join(`/api/image?blockId=${page.object.id}`), fetcher);
         const options: Intl.DateTimeFormatOptions = {
             year: 'numeric',
             month: '2-digit',

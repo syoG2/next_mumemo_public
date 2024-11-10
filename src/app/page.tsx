@@ -10,7 +10,7 @@ export const revalidate = 86400;
 // TODO:Homeのコンポーネントを作る。更新順と閲覧数順をYoutubeを参考に作る
 // TODO:検索用のページを作る
 export default async function Home() {
-  let timeSortedParam = {
+  const timeSortedParam = {
     database_id: blogDatabaseId,
     sorts: [
       {
@@ -25,7 +25,7 @@ export default async function Home() {
       }
     },
   }
-  let timeSortedPages = await getDatabase(timeSortedParam);
+  const timeSortedPages = await getDatabase(timeSortedParam);
 
   let viewsSortedParam = {
     database_id: blogDatabaseId,
@@ -42,7 +42,7 @@ export default async function Home() {
       }
     },
   }
-  let viewsSortedPages = await getDatabase(viewsSortedParam);
+  const viewsSortedPages = await getDatabase(viewsSortedParam);
 
   return (
     <Main>
