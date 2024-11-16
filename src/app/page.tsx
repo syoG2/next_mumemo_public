@@ -10,7 +10,6 @@ export const revalidate = 86400;
 
 const getPages = cache(
   async (params: QueryDatabaseParameters) => {
-
     return await getDatabase(params);
   },
 )
