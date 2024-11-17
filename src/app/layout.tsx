@@ -28,11 +28,16 @@ export const metadata: Metadata = {
     locale: 'ja_JP',
     type: 'website',
     images: {
-      url: "https://mumemo.vercel.app/mu.svg",
+      url: "/icon.svg",
       width: 1200,
       height: 600,
     }
   },
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  }
 }
 
 export default function RootLayout({
