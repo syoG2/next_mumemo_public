@@ -1,0 +1,21 @@
+import { revalidatePath } from 'next/cache';
+import { NextRequest, NextResponse } from 'next/server';
+
+export async function GET(request: NextRequest) {
+    const path = request.nextUrl.href
+    if (path) {
+        const pathParts = path.split("/");
+        pathParts.pop();
+        const newPath = pathParts.join("/");
+        revalidatePath(newPath);
+        return NextResponse.json({
+            revalidated: true,
+            now: Date.now(),
+        })
+    }
+
+    return NextResponse.json({
+        revalidated: false,
+        now: Date.now(),
+    })
+}
