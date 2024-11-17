@@ -3,6 +3,7 @@ import { blockToJsx } from "@/components/notion/blockToJsx/blockToJsx";
 import multiselectColorStyles from "@/components/notion/multiselectColor.module.css";
 import { blogDatabaseId, getDatabase, getPageJson } from "@/components/notion/notion";
 import { RichText } from "@/components/notion/richText/richText";
+import { Metadata } from 'next';
 import Link from 'next/link';
 import styles from './page.module.css';
 import ViewCounter from "./viewCounter";
@@ -12,6 +13,52 @@ export const revalidate = 86400;
 type Props = {
     params: Promise<{ id: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const props = await params;
+    const pageJson = await getPageJson(props.id);
+    let tags;
+    switch (pageJson?.page.type) {
+        case 'PageObjectResponse':
+            if (pageJson.page.object.properties["タイトル"].type === 'title') {
+                let imageUrl;
+                switch (pageJson.page.object.cover?.type) {
+                    case 'external':
+                        imageUrl = pageJson.page.object.cover.external.url;
+                        break;
+                    case 'file':
+                        imageUrl = pageJson.page.object.cover.file.url;
+                        break;
+                    default:
+                        imageUrl = "";
+                        break;
+                }
+                tags = pageJson.page.object.properties["タグ"]?.type === "multi_select" ?
+                    pageJson.page.object.properties["タグ"].multi_select.map((tag) => {
+                        return (
+                            tag.name
+                        )
+                    }) : [];
+                return {
+                    title: pageJson.page.object.properties["タイトル"].title.reduce((accumulator, currentValue) => accumulator + currentValue.plain_text, ""),
+                    description: pageJson.page.object.properties["タイトル"].title.reduce((accumulator, currentValue) => accumulator + currentValue.plain_text, ""),
+                    keywords: tags,
+                    openGraph: {
+                        images: {
+                            url: imageUrl,
+                            width: 1200,
+                            height: 600,
+                        }
+                    }
+                }
+            } else {
+                return {}
+            }
+        case 'PartialPageObjectResponse':
+            return {}
+    }
+    return {}
+}
 
 // TODO:ページが存在しない場合のエラーページを作成する
 export default async function Article({ params }: Props) {
