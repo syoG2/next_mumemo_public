@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
     const path = request.nextUrl.href
+    console.log(request.nextUrl.origin)
     if (path) {
         const pathParts = path.split("/");
         pathParts.pop();
