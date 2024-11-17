@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                         imageUrl = "";
                         break;
                 }
-                let tags = pageJson.page.object.properties["タグ"]?.type === "multi_select" ?
+                const tags = pageJson.page.object.properties["タグ"]?.type === "multi_select" ?
                     pageJson.page.object.properties["タグ"].multi_select.map((tag) => {
                         return (
                             tag.name
