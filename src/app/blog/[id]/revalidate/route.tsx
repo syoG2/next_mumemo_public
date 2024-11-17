@@ -9,6 +9,10 @@ export async function GET(request: NextRequest) {
         pathParts.pop();
         const newPath = pathParts.join("/");
         revalidatePath(newPath);
+        pathParts.pop();
+        pathParts.pop();
+        const basePath = pathParts.join("/");
+        revalidatePath(basePath);
         return NextResponse.json({
             revalidated: true,
             now: Date.now(),
