@@ -2,17 +2,16 @@ import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
-    const path = request.nextUrl.href.replace("https:/", "");
+    const path = request.nextUrl.href;
     const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET
-    if (process.env.REVALIDATE_SECRET === request.headers.get("secret") && path) {
-        const pathParts = path.split("/");
-        pathParts.pop();
-        const newPath = pathParts.join("/");
+    // if (process.env.REVALIDATE_SECRET === request.headers.get("secret") && path) {
+    if (path) {
+        console.log(path)
+        const pathParts = path.split("/").slice(3, -1);
+        const newPath = "/" + pathParts.join("/");
         revalidatePath(newPath);
         console.log(newPath)
-        pathParts.pop();
-        pathParts.pop();
-        const basePath = pathParts.join("/");
+        const basePath = "/";
         revalidatePath(basePath);
         console.log(basePath)
         return NextResponse.json({
