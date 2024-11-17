@@ -2,7 +2,7 @@ import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
-    const path = request.nextUrl.href
+    const path = request.nextUrl.href.replace("https:/", "");
     const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET
     if (process.env.REVALIDATE_SECRET === request.headers.get("secret") && path) {
         const pathParts = path.split("/");
