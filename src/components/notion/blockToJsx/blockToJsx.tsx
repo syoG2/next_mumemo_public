@@ -20,6 +20,7 @@ import { Table } from "../blocks/table/table";
 import { Todo } from "../blocks/todo/todo";
 import { Toggle } from "../blocks/toggle/toggle";
 
+//TODO: ページリンクを作成する。ブログ内のリンクになるように注意
 export function blockToJsx(block: ExPartialBlockObjectResponse | ExBlockObjectResponse) {
     if (block.type === "PartialBlockObjectResponse") {
         return <div>PartialBlockObjectResponse</div>

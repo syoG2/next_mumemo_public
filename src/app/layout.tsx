@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     locale: 'ja_JP',
     type: 'website',
     images: {
-      url: "",
+      url: "https://mumemo.vercel.app/mu.svg",
       width: 1200,
       height: 600,
     }

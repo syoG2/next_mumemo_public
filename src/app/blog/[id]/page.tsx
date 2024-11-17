@@ -18,7 +18,6 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const props = await params;
     const pageJson = await getPageJson(props.id);
-    let tags;
     switch (pageJson?.page.type) {
         case 'PageObjectResponse':
             if (pageJson.page.object.properties["タイトル"].type === 'title') {
@@ -34,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                         imageUrl = "";
                         break;
                 }
-                tags = pageJson.page.object.properties["タグ"]?.type === "multi_select" ?
+                let tags = pageJson.page.object.properties["タグ"]?.type === "multi_select" ?
                     pageJson.page.object.properties["タグ"].multi_select.map((tag) => {
                         return (
                             tag.name
