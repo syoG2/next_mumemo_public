@@ -5,7 +5,6 @@ import { QueryDatabaseParameters } from "@notionhq/client/build/src/api-endpoint
 import { cache } from "react";
 import styles from "./page.module.css";
 
-// TODO: revalidateの使い方が正しいか調べる
 export const revalidate = 86400;
 
 const getPages = cache(
