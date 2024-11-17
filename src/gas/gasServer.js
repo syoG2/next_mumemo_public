@@ -1,6 +1,6 @@
 const NOTION_API_KEY = PropertiesService.getScriptProperties().getProperty('NOTION_API_KEY');
 const NOTION_BLOG_DATABASE_ID = PropertiesService.getScriptProperties().getProperty('NOTION_BLOG_DATABASE_ID');
-
+const REVALIDATE_SECRET = PropertiesService.getScriptProperties().getProperty('REVALIDATE_SECRET');
 function updateBlog() {
     let sheet = SpreadsheetApp.getActiveSheet();
     let lastRow = sheet.getLastRow();
@@ -16,9 +16,10 @@ function updateBlog() {
                     const blocks = getBlocks(pageId);
                     setBlocks(pageId, blocks);
                 }
-                // UrlFetchApp.fetch(`https://mumemo.vercel.app/api/revalidate?path=/blog/${pageId}`);
-                // Utilities.sleep(11000);
-                // UrlFetchApp.fetch(`https://mumemo.vercel.app/blog/${pageId}`)
+                UrlFetchApp.fetch(`https://mumemo.vercel.app/blog/${pageId}/revalidate`, { 'headers': { "secret": REVALIDATE_SECRET } });
+                Utilities.sleep(11000);
+                UrlFetchApp.fetch(`https://mumemo.vercel.app/blog/${pageId}`)
+                UrlFetchApp.fetch(`https://mumemo.vercel.app/`)
             } catch (e) {
                 Logger.log('Error:');
                 Logger.log(e);
@@ -44,7 +45,7 @@ function updateBlog() {
         // if (page.object.last_edited_time > newLastEditedTime) {
         //     newLastEditedTime = page.object.last_edited_time;
         // }
-
+        console.log(page)
         if ((lastRow <= 0 || sheet.getRange(1, 1, lastRow, 1).getValues().flat().includes(page.object.id) === false) && page.object.id !== pageId) {
             sheet.getRange(lastRow + 1, 1).setValue(page.object.id);
             lastRow += 1;
