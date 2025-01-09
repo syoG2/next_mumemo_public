@@ -1,6 +1,7 @@
 const NOTION_API_KEY = PropertiesService.getScriptProperties().getProperty('NOTION_API_KEY');
 const NOTION_BLOG_DATABASE_ID = PropertiesService.getScriptProperties().getProperty('NOTION_BLOG_DATABASE_ID');
 const REVALIDATE_SECRET = PropertiesService.getScriptProperties().getProperty('REVALIDATE_SECRET');
+
 function updateBlog() {
     let sheet = SpreadsheetApp.getActiveSheet();
     let lastRow = sheet.getLastRow();
@@ -127,7 +128,7 @@ function getPage(pageId) {
 }
 
 function getBlocks(blockId) {
-
+    //[ ]:100以上のblockに対応
     let url = `https://api.notion.com/v1/blocks/${blockId}/children?page_size=100`;
     const opts = {
         'method': 'GET',
