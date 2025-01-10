@@ -9,7 +9,7 @@ import styles from './richText.module.css';
 type Props = {
     text: Array<RichTextItemResponse>;
 };
-
+// [ ]:行間を広げる
 export const RichText: FC<Props> = ({ text }) => {
     return (
         <p className={styles.richText}>
