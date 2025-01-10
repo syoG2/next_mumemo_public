@@ -31,5 +31,6 @@
 }
 
 .link {
+    /* [ ]:リンクの見た目をわかりやすくする */
     word-break: break-all;
 }
