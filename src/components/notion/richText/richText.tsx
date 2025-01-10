@@ -34,6 +34,7 @@ export const RichText: FC<Props> = ({ text }) => {
                                 {textItem.plain_text}
                             </span>
                         } else if (textItem.type === 'equation') {
+                            // [ ]:InlineMathに背景色が反映されていない
                             ret = <InlineMath key={index}>{textItem.plain_text}</InlineMath>
                         } else {
                             ret = <span key={index}></span>
