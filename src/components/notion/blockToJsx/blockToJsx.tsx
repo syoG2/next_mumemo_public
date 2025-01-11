@@ -11,6 +11,7 @@ import { Heading1 } from "../blocks/heading1/heading1";
 import { Heading2 } from "../blocks/heading2/heading2";
 import { Heading3 } from "../blocks/heading3/heading3";
 import { NotionImage } from "../blocks/image/image";
+import { LinkToPage } from "../blocks/linkToPage/linkToPage";
 import { NumberedList } from "../blocks/numberedList/numberedList";
 import { NumberedListItem } from "../blocks/numberedListItem/numberedListItem";
 import { Paragraph } from "../blocks/paragraph/paragraph";
@@ -59,6 +60,8 @@ export function blockToJsx(block: ExPartialBlockObjectResponse | ExBlockObjectRe
                 return <Heading3 block={block.object} nestBlocks={block.children} />
             case "image":
                 return <NotionImage block={block.object} nestBlocks={block.children} />
+            case "link_to_page":
+                return <LinkToPage block={block.object} nestBlocks={block.children} />
             case "numbered_list":
                 return <NumberedList block={block.object} nestBlocks={block.children} />
             case "numbered_list_item":
