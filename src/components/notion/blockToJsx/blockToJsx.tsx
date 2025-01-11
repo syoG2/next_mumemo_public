@@ -7,6 +7,7 @@ import { Code } from "../blocks/code/code";
 import { ColumnList } from "../blocks/columnList/columnList";
 import { Divider } from "../blocks/divider/divider";
 import { Equation } from "../blocks/equation/equation";
+import { File } from "../blocks/file/file";
 import { Heading1 } from "../blocks/heading1/heading1";
 import { Heading2 } from "../blocks/heading2/heading2";
 import { Heading3 } from "../blocks/heading3/heading3";
@@ -20,8 +21,8 @@ import { SyncedBlock } from "../blocks/syncedBlock/syncedBlock";
 import { Table } from "../blocks/table/table";
 import { Todo } from "../blocks/todo/todo";
 import { Toggle } from "../blocks/toggle/toggle";
+import { Video } from "../blocks/video/video";
 
-//TODO: ページリンクを作成する。ブログ内のリンクになるように注意
 export function blockToJsx(block: ExPartialBlockObjectResponse | ExBlockObjectResponse) {
     if (block.type === "PartialBlockObjectResponse") {
         return <div>PartialBlockObjectResponse</div>
@@ -52,6 +53,8 @@ export function blockToJsx(block: ExPartialBlockObjectResponse | ExBlockObjectRe
                 return <Divider block={block.object} nestBlocks={block.children} />
             case "equation":
                 return <Equation block={block.object} nestBlocks={block.children} />
+            case "file":
+                return <File block={block.object} nestBlocks={block.children} />
             case "heading_1":
                 return <Heading1 block={block.object} nestBlocks={block.children} />
             case "heading_2":
@@ -81,6 +84,8 @@ export function blockToJsx(block: ExPartialBlockObjectResponse | ExBlockObjectRe
             case 'table_of_contents':
                 // table_of_contentsはapiから適切なデータが取得できないため、表示しない
                 return null
+            case "video":
+                return <Video block={block.object} nestBlocks={block.children} />
             default:
                 return (
                     <details id={block.object.id}>

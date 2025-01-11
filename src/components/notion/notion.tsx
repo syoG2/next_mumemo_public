@@ -195,3 +195,29 @@ export const getImagePath = async (imageBlockId: string): Promise<string> => {
     }
     return "";
 }
+
+export const getFilePath = async (fileBlockId: string): Promise<string> => {
+    try {
+        const response = await getBlock(fileBlockId);
+        if (response.type === 'BlockObjectResponse' && response.object.type === 'file' && response.object.file.type === 'file') {
+            return response.object.file.file.url;
+        }
+    } catch (error) {
+        console.log(error);
+        return "";
+    }
+    return "";
+}
+
+export const getVideoPath = async (fileBlockId: string): Promise<string> => {
+    try {
+        const response = await getBlock(fileBlockId);
+        if (response.type === 'BlockObjectResponse' && response.object.type === 'video' && response.object.video.type === 'file') {
+            return response.object.video.file.url;
+        }
+    } catch (error) {
+        console.log(error);
+        return "";
+    }
+    return "";
+}

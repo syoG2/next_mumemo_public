@@ -26,7 +26,6 @@ export const LinkToPage: FC<Props> = ({ block, nestBlocks }) => {
         return <></>
     }
     if (isLoading && block.link_to_page.type === 'page_id') {
-
         return (
             <div id={block.id} className={styles.bookmark}>
                 <Link className={styles.link} href={url} prefetch={true}>
