@@ -1,7 +1,6 @@
 const NOTION_API_KEY = PropertiesService.getScriptProperties().getProperty('NOTION_API_KEY');
 const NOTION_BLOG_DATABASE_ID = PropertiesService.getScriptProperties().getProperty('NOTION_BLOG_DATABASE_ID');
 const REVALIDATE_SECRET = PropertiesService.getScriptProperties().getProperty('REVALIDATE_SECRET');
-
 function updateBlog() {
     let sheet = SpreadsheetApp.getActiveSheet();
     let lastRow = sheet.getLastRow();
@@ -15,22 +14,21 @@ function updateBlog() {
                     setBlocks(pageId, null)
                 } else {
                     const blocks = getBlocks(pageId);
-                    setBlocks(pageId, blocks);
+                    const response = setBlocks(pageId, blocks);
+                    console.log(response)
                 }
                 UrlFetchApp.fetch(`https://mumemo.vercel.app/blog/${pageId}/revalidate`, { 'headers': { "secret": REVALIDATE_SECRET } });
                 Utilities.sleep(11000);
                 UrlFetchApp.fetch(`https://mumemo.vercel.app/blog/${pageId}`)
                 UrlFetchApp.fetch(`https://mumemo.vercel.app/`)
             } catch (e) {
-                Logger.log('Error:');
-                Logger.log(e);
+                Logger.log(`Error:${e}`);
             }
         }
         sheet.deleteRow(lastRow);
     }
     SpreadsheetApp.flush();
 
-    // const lastEditedTime = PropertiesService.getScriptProperties().getProperty('LAST_EDITED_TIME');
     const filter = {
         "filter": {
             "property": "更新",
@@ -41,21 +39,13 @@ function updateBlog() {
     }
     const pages = getDatabase(NOTION_BLOG_DATABASE_ID, filter)
     lastRow = sheet.getLastRow();
-    // let newLastEditedTime = lastEditedTime;
     pages.map((page) => {
-        // if (page.object.last_edited_time > newLastEditedTime) {
-        //     newLastEditedTime = page.object.last_edited_time;
-        // }
         console.log(page)
         if ((lastRow <= 0 || sheet.getRange(1, 1, lastRow, 1).getValues().flat().includes(page.object.id) === false) && page.object.id !== pageId) {
             sheet.getRange(lastRow + 1, 1).setValue(page.object.id);
             lastRow += 1;
         }
     })
-    // UrlFetchApp.fetch(`https://mumemo.vercel.app/api/revalidate?path=/`);
-    // Utilities.sleep(11000);
-    // UrlFetchApp.fetch(`https://mumemo.vercel.app/`);
-    // PropertiesService.getScriptProperties().setProperty("LAST_EDITED_TIME", newLastEditedTime);
 }
 
 function getDatabase(databaseId, filter) {
@@ -128,8 +118,9 @@ function getPage(pageId) {
 }
 
 function getBlocks(blockId) {
-    //[ ]:100以上のblockに対応
+    // [X]:100以上のブロックに対応する
     let url = `https://api.notion.com/v1/blocks/${blockId}/children?page_size=100`;
+
     const opts = {
         'method': 'GET',
         'headers': {
@@ -137,10 +128,17 @@ function getBlocks(blockId) {
             'Authorization': `Bearer ${NOTION_API_KEY}`
         }
     };
-    let response = JSON.parse(UrlFetchApp.fetch(url, opts));
+    let response;
+    let tmp_response = JSON.parse(UrlFetchApp.fetch(url, opts));
+    response = tmp_response;
+    while ('next_cursor' in tmp_response && tmp_response.next_cursor !== null) {
+        url = `https://api.notion.com/v1/blocks/${blockId}/children?page_size=100&start_cursor=${tmp_response.next_cursor}`;
+        tmp_response = JSON.parse(UrlFetchApp.fetch(url, opts));
+        response.results = response.results.concat(tmp_response.results);
+    }
 
     // blockObjectsにBlockの情報を加えていき、最終的に返す
-    const blockObjects = [];
+    let blockObjects = [];
 
     // bulleted_list_itemが連続している間はbulletedListに追加し、連続が途切れたらblockObjectsに追加する
     let bulletedList = {
@@ -238,6 +236,7 @@ function getBlocks(blockId) {
         blockObjects.push(JSON.parse(JSON.stringify(numberedList)));
         numberedList.children = []
     }
+
     return blockObjects;
 }
 
