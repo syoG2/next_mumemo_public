@@ -16,9 +16,9 @@ export const Heading2: FC<Props> = ({ block, nestBlocks }) => {
             <details id={block.id} className={[colorStyles[block.heading_2.color], styles.toggle].join(" ")}>
                 <summary className={styles.toggleTitle}>
                     <span className={styles.triangle}>▼</span>
-                    <h1>
+                    <h2>
                         <RichText text={block.heading_2.rich_text} />
-                    </h1>
+                    </h2>
                 </summary>
                 <Children nestBlocks={nestBlocks} />
             </details>
