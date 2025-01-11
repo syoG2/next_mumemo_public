@@ -61,6 +61,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 // TODO:ページが存在しない場合のエラーページを作成する
+// [ ]:Notionのカバー画像を表示したい
 export default async function Article({ params }: Props) {
     const props = await params;
     if (blogDatabaseId) {

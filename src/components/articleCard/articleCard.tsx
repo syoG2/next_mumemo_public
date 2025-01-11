@@ -9,7 +9,7 @@ import multiselectColorStyles from '../notion/multiselectColor.module.css';
 import { RichText } from '../notion/richText/richText';
 import styles from './articleCard.module.css';
 
-// TODO: 画像を表示する
+// TODO: OGP画像を表示する
 
 type Props = {
     page: ExPageObjectResponse | ExPartialPageObjectResponse | ExPartialDatabaseObjectResponse | ExDatabaseObjectResponse,
