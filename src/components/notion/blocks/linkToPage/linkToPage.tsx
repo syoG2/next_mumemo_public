@@ -21,7 +21,7 @@ export const LinkToPage: FC<Props> = ({ block, nestBlocks }) => {
     if (block.link_to_page.type !== 'page_id') {
         return <></>
     } else {
-        let url = `https://mumemo.vercel.app/blog/${block.link_to_page.page_id}`
+        const url = `https://mumemo.vercel.app/blog/${block.link_to_page.page_id}`
         const { data, error, isLoading } = useSWR<{ title: string, description: string, image: string }>(path.join(`/api/bookmark?url=${url}`), fetcher);
         if (isLoading && block.link_to_page.type === 'page_id') {
 
