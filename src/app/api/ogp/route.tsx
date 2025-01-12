@@ -41,7 +41,7 @@ export async function GET(request: NextRequest): Promise<ImageResponse> {
                     {title}
                 </h1>
                 <div
-                    style={{ marginRight: 30, height: 50, width: "100%", display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}
+                    style={{ marginRight: 30, height: 50, width: "100%", display: "flex", justifyContent: "center", alignItems: "flex-end" }}
                 >
                     <img style={{
                         height: "100%",
