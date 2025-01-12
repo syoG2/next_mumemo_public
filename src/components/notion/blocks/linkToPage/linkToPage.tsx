@@ -1,13 +1,13 @@
 "use client";
 
 import { ExBlockObjectResponse, ExPartialBlockObjectResponse } from '@/components/notion/notion';
+import { siteData } from "@/const/const";
 import type { LinkToPageBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import Link from 'next/link';
 import path from 'path';
 import type { FC } from 'react';
 import useSWR from 'swr';
 import styles from './linkToPage.module.css';
-
 type Props = {
     block: LinkToPageBlockObjectResponse,
     nestBlocks: (ExPartialBlockObjectResponse | ExBlockObjectResponse)[],
@@ -19,7 +19,7 @@ const fetcher = (url: string): Promise<any> => {
 
 export const LinkToPage: FC<Props> = ({ block, nestBlocks }) => {
     const url = block.link_to_page.type === 'page_id'
-        ? `https://mumemo.vercel.app/blog/${block.link_to_page.page_id}`
+        ? `${siteData.url}/blog/${block.link_to_page.page_id}`
         : null;
     const { data, error, isLoading } = useSWR<{ title: string, description: string, image: string }>(url ? path.join(`/api/bookmark?url=${url}`) : null, fetcher);
     if (!url) {

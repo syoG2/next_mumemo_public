@@ -1,6 +1,7 @@
 import Footer from "@/components/layout/footer/footer";
 import Header from "@/components/layout/header/header";
 import layoutStyles from '@/components/layout/layout.module.css';
+import { siteData } from "@/const/const";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
@@ -9,7 +10,6 @@ import "./globals.css";
 
 const siteName = 'mumemo';
 const description = 'Notion + Vercelで開発した個人サイト.情報技術を中心に雑多なことを書いていきます.';
-const url = 'https://mumemo.vercel.app'
 
 export const metadata: Metadata = {
   generator: 'Next.js',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: siteName,
     description: description,
-    url,
+    url: siteData.url,
     siteName,
     locale: 'ja_JP',
     type: 'website',

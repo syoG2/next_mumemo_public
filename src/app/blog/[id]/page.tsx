@@ -3,6 +3,7 @@ import { blockToJsx } from "@/components/notion/blockToJsx/blockToJsx";
 import multiselectColorStyles from "@/components/notion/multiselectColor.module.css";
 import { blogDatabaseId, getDatabase, getPageJson } from "@/components/notion/notion";
 import { RichText } from "@/components/notion/richText/richText";
+import { siteData } from "@/const/const";
 import { Metadata } from 'next';
 import Link from 'next/link';
 import styles from './page.module.css';
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                         imageUrl = pageJson.page.object.cover.file.url;
                         break;
                     default:
-                        imageUrl = "";
+                        imageUrl = `${siteData.url}/api/ogp?title=${pageJson.page.object.properties["タイトル"].title.reduce((accumulator, currentValue) => accumulator + currentValue.plain_text, "")}`;
                         break;
                 }
                 const tags = pageJson.page.object.properties["タグ"]?.type === "multi_select" ?
