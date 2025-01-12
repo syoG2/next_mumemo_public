@@ -15,7 +15,6 @@ type Props = {
     params: Promise<{ id: string }>;
 };
 
-//TODO: OGP画像をブログタイトルから生成する機能を追加する
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const props = await params;
     const pageJson = await getPageJson(props.id);
