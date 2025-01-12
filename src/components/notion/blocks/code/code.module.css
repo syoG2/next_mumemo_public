@@ -1,5 +1,9 @@
-.caption{
+.caption {
     display: flex;
     align-items: center;
     width: auto;
+}
+
+.mermaid {
+    background-color: white;
 }

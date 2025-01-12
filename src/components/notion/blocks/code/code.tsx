@@ -1,16 +1,12 @@
 import { ExBlockObjectResponse, ExPartialBlockObjectResponse } from '@/components/notion/notion';
+import { RichText } from '@/components/notion/richText/richText';
 import type { CodeBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import type { FC } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { vs2015 } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import styles from './code.module.css';
+import { Mermaid } from './mermaid';
 
-import { RichText } from '@/components/notion/richText/richText';
-
-type Props = {
-  block: CodeBlockObjectResponse,
-  nestBlocks: (ExPartialBlockObjectResponse | ExBlockObjectResponse)[],
-};
 
 const languageMap: { [key: string]: string; } = {
   "abap": 'abap',
@@ -102,12 +98,21 @@ const languageMap: { [key: string]: string; } = {
   "yaml": 'yaml',
 }
 
+type Props = {
+  block: CodeBlockObjectResponse,
+  nestBlocks: (ExPartialBlockObjectResponse | ExBlockObjectResponse)[],
+};
+
 export const Code: FC<Props> = ({ block, nestBlocks }) => {
   return (
     <div>
-      <SyntaxHighlighter language={languageMap["c++"]} style={vs2015}>
+      <div className={styles.caption}>language: {block.code.language}</div>
+      <SyntaxHighlighter language={languageMap[block.code.language]} style={vs2015}>
         {block.code.rich_text.reduce((pre, cur) => pre + cur.plain_text, "")}
       </SyntaxHighlighter>
+      {block.code.language === "mermaid" &&
+        <Mermaid chart={block.code.rich_text.reduce((pre, cur) => pre + cur.plain_text, "")} />
+      }
       {block.code.caption.length !== 0 &&
         <div className={styles.caption}>
           caption:
