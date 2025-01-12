@@ -3,7 +3,7 @@ import { NextRequest } from 'next/server';
 
 const size = {
     width: 1200,
-    height: 630,
+    height: 600,
 };
 
 export async function GET(request: NextRequest): Promise<ImageResponse> {
@@ -13,7 +13,7 @@ export async function GET(request: NextRequest): Promise<ImageResponse> {
             <div
                 style={{
                     fontSize: 48,
-                    background: "white",
+                    backgroundColor: "#eeeeee",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -23,7 +23,7 @@ export async function GET(request: NextRequest): Promise<ImageResponse> {
                 }}
             >
                 <div
-                    style={{ height: 40, backgroundColor: "#5AC8D8", width: "100%" }}
+                    style={{ height: 40, backgroundColor: "#333333", width: "100%" }}
                 />
                 <h1
                     style={{
@@ -37,9 +37,21 @@ export async function GET(request: NextRequest): Promise<ImageResponse> {
                     {title}
                 </h1>
                 <div
-                    style={{ height: 40, backgroundColor: "#5AC8D8", width: "100%" }}
+                    style={{ height: 40, width: "100%", display: "flex", justifyContent: "flex-end" }}
+                >
+                    <img style={{
+                        height: "100%",
+                    }} src="https://mumemo.vercel.app/mu.svg" alt="logo" />
+                    <div style={{
+                        font: "30px ui-monospace", fontWeight: 900,
+                        letterSpacing: "0.15rem",
+                        textDecoration: "#ffffff"
+                    }}>mumemo</div>
+                </div>
+                <div
+                    style={{ height: 40, backgroundColor: "#333333", width: "100%" }}
                 />
-            </div>
+            </div >
         ),
         {
             ...size,
