@@ -22,8 +22,7 @@ export const Video: FC<Props> = ({ block, nestBlocks }) => {
         } else if (error) {
             return <div>動画の読み込みでエラーが発生しました。</div>
         } else if (data) {
-            return <video width="100%" src={block.video.file.url} controls></video>
-
+            return <video width="100%" src={data.url} controls>{ }</video>
         } else {
             return <div>動画が存在しません。</div>
         }
