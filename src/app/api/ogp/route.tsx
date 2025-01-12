@@ -7,7 +7,11 @@ const size = {
 };
 
 export async function GET(request: NextRequest): Promise<ImageResponse> {
-    const title = request.nextUrl.searchParams.get('title');
+    let title = request.nextUrl.searchParams.get('title');
+    if (title && title.length > 30) {
+        title = title.slice(0, 29) + "…";
+
+    }
     return new ImageResponse(
         (
             <div
@@ -37,15 +41,15 @@ export async function GET(request: NextRequest): Promise<ImageResponse> {
                     {title}
                 </h1>
                 <div
-                    style={{ height: 40, width: "100%", display: "flex", justifyContent: "flex-end" }}
+                    style={{ marginRight: 30, height: 50, width: "100%", display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}
                 >
                     <img style={{
                         height: "100%",
                     }} src="https://mumemo.vercel.app/mu.svg" alt="logo" />
                     <div style={{
-                        font: "30px ui-monospace", fontWeight: 900,
+                        fontSize: "40px", fontFamily: "ui-monospace", fontWeight: 900,
                         letterSpacing: "0.15rem",
-                        textDecoration: "#ffffff"
+                        textDecoration: "#000000 underline",
                     }}>mumemo</div>
                 </div>
                 <div
