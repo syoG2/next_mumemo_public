@@ -1,4 +1,5 @@
 import colorStyles from '@/components/notion/color.module.css';
+import { siteData } from '@/const/const';
 import type { RichTextItemResponse } from "@notionhq/client/build/src/api-endpoints";
 import 'katex/dist/katex.min.css';
 import Link from 'next/link';
@@ -33,9 +34,40 @@ export const RichText: FC<Props> = ({ text }) => {
                             >
                                 {textItem.plain_text}
                             </span>
+
                         } else if (textItem.type === 'equation') {
                             // [ ]:InlineMathに背景色が反映されていない
-                            ret = <InlineMath key={index}>{textItem.plain_text}</InlineMath>
+                            ret = <span
+                                key={index}
+                                className={
+                                    [styles.whitespace,
+                                    (textItem.annotations.bold ? styles.bold : ""),
+                                    (textItem.annotations.italic ? styles.italic : ""),
+                                    (textItem.annotations.strikethrough ? styles.strikethrough : ""),
+                                    (textItem.annotations.underline ? styles.underline : ""),
+                                    (textItem.annotations.code ? styles.code : (textItem.annotations.color ? colorStyles[textItem.annotations.color] : ""))].join(" ")
+                                }
+                            >
+                                <InlineMath key={index}>{textItem.plain_text}</InlineMath>
+                            </span>
+                        } else if (textItem.type === 'mention') {
+                            ret = <span
+                                key={index}
+                                className={
+                                    [styles.whitespace,
+                                    (textItem.annotations.bold ? styles.bold : ""),
+                                    (textItem.annotations.italic ? styles.italic : ""),
+                                    (textItem.annotations.strikethrough ? styles.strikethrough : ""),
+                                    (textItem.annotations.underline ? styles.underline : ""),
+                                    (textItem.annotations.code ? styles.code : (textItem.annotations.color ? colorStyles[textItem.annotations.color] : ""))].join(" ")
+                                }
+                            >
+                                {textItem.plain_text}
+                            </span>
+                            if (textItem.mention.type === 'page') {
+                                textItem.href = `${siteData.url}/blog/${textItem.mention.page.id}`;
+                            }
+
                         } else {
                             ret = <span key={index}></span>
                         }
