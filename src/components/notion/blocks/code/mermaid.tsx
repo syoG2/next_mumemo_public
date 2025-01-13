@@ -2,40 +2,31 @@
 
 import mermaid from "mermaid";
 // import React from 'react';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import styles from './code.module.css';
 
-mermaid.initialize({
-    startOnLoad: true,
-    theme: "default",
-    securityLevel: "loose",
-    fontFamily: "Fira Code"
-});
 
 
 type Props = {
-    chart: string;
+    src: string;
+    className?: string;
 };
 
-// export default class Mermaid extends React.Component {
-//     componentDidMount() {
-//         mermaid.contentLoaded();
-//     }
-//     render() {
-//         return <div className="mermaid">{chart}</div>;
-//     }
-// }
 
-export const Mermaid: FC<Props> = ({ chart }) => {
-    mermaid.contentLoaded();
-
-    const [flag, setFlag] = useState(false);
+export const Mermaid: FC<Props> = ({ src, className }) => {
+    const ref = useRef<HTMLDivElement>(null);
     useEffect(() => {
-        setFlag(true);
+        if (src && ref.current) {
+            mermaid.init({}, ref.current);
+        }
     }, []);
     return (
-        <div className={styles.mermaid}>
-            {flag && <div className="mermaid">{chart}</div>}
-        </div>
+        src ?
+            <div className={styles.mermaid}>
+                <div className={className} ref={ref} key={src}>
+                    {src}
+                </div>
+            </div>
+            : <div className={className} key={src} />
     );
 }

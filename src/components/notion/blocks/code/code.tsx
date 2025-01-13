@@ -111,7 +111,7 @@ export const Code: FC<Props> = ({ block, nestBlocks }) => {
         {block.code.rich_text.reduce((pre, cur) => pre + cur.plain_text, "")}
       </SyntaxHighlighter>
       {block.code.language === "mermaid" &&
-        <Mermaid chart={block.code.rich_text.reduce((pre, cur) => pre + cur.plain_text, "")} />
+        <Mermaid src={block.code.rich_text.reduce((pre, cur) => pre + cur.plain_text, "")} />
       }
       {block.code.caption.length !== 0 &&
         <div className={styles.caption}>
