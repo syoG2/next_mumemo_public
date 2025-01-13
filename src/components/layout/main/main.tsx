@@ -13,7 +13,7 @@ export default function Main({ children, rside = null }: { children: React.React
                     {children}
                 </main>
                 <nav className={layoutStyles.rside}>
-                    <details className={layoutStyles.rsideSticky}>
+                    <details className={layoutStyles.rsideSticky} open>
                         <summary className={layoutStyles.summary}>
                             <span className={layoutStyles.triangle}>▼</span>
                             <h3>目次</h3>
