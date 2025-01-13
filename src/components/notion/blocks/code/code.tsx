@@ -103,6 +103,8 @@ type Props = {
   nestBlocks: (ExPartialBlockObjectResponse | ExBlockObjectResponse)[],
 };
 
+// [ ]:languageとcaptionの表示を調整する
+// [ ]:mermaidを表示するときは図を表示したい場合が多そうなので、codeはdetailで開閉できるようにする。
 export const Code: FC<Props> = ({ block, nestBlocks }) => {
   return (
     <div>
