@@ -1,71 +1,32 @@
-"use client";
-
-import { ExBlockObjectResponse, ExPartialBlockObjectResponse } from '@/components/notion/notion';
+import { ExBlockObjectResponse, ExPartialBlockObjectResponse, getPageJson } from '@/components/notion/notion';
+import { RichText } from '@/components/notion/richText/richText';
 import { siteData } from "@/const/const";
 import type { LinkToPageBlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import Link from 'next/link';
-import path from 'path';
 import type { FC } from 'react';
-import useSWR from 'swr';
 import styles from './linkToPage.module.css';
+
 type Props = {
     block: LinkToPageBlockObjectResponse,
     nestBlocks: (ExPartialBlockObjectResponse | ExBlockObjectResponse)[],
 };
 
-const fetcher = (url: string): Promise<any> => {
-    return fetch(url).then(res => res.json());
-}
-
-export const LinkToPage: FC<Props> = ({ block, nestBlocks }) => {
-    const url = block.link_to_page.type === 'page_id'
-        ? `${siteData.url}/blog/${block.link_to_page.page_id}`
-        : null;
-    const { data, error, isLoading } = useSWR<{ title: string, description: string, image: string }>(url ? path.join(`/api/bookmark?url=${url}`) : null, fetcher);
-    if (!url) {
-        return <></>
+// [X]:link_to_pageはinlineで利用する可能性があるため、bookmarkではなく、リンクの形にする
+// [X]:リンク先が非公開だった場合、表示しない
+export const LinkToPage: FC<Props> = async ({ block, nestBlocks }) => {
+    if (block.link_to_page.type === 'page_id') {
+        const pageJson = await getPageJson(block.link_to_page.page_id);
+        if (pageJson?.page.type === 'PageObjectResponse') {
+            if (pageJson.page.object.properties["公開状態"].type === "select" && pageJson.page.object.properties["公開状態"].select?.name === "公開" && pageJson.page.object.properties["タイトル"].type === 'title') {
+                const url = `${siteData.url}/blog/${block.link_to_page.page_id}`;
+                return (
+                    <Link className={styles.link} href={url}>
+                        <RichText text={pageJson.page.object.properties["タイトル"].title} />
+                    </Link>
+                )
+            }
+        }
     }
-    if (isLoading && block.link_to_page.type === 'page_id') {
-        return (
-            <div id={block.id} className={styles.bookmark}>
-                <Link className={styles.link} href={url} prefetch={true}>
-                    <div className={styles.linkText}>
-                        <div className={styles.url}>
-                            {url}
-                        </div>
-                    </div>
-                </Link>
-            </div>
-        )
-    } else if (error) {
-        return (
-            <div id={block.id} className={styles.bookmark}>
-                <Link className={styles.link} href={url} prefetch={true}>
-                    <div className={styles.linkText}>
-                        <div className={styles.url}>
-                            {url}
-                        </div>
-                    </div>
-                </Link>
-            </div>
-        )
-    } else if (data) {
-        return (
-            <div id={block.id} className={styles.bookmark}>
-                <Link className={styles.link} href={url} prefetch={true}>
-                    <div className={styles.linkText}>
-                        <div className={styles.title}>{data.title}</div>
-                        <div className={styles.description}>{data.description}</div>
-                        <div className={styles.url}>
-                            <img className={styles.favicon} src={`https://www.google.com/s2/favicons?domain=${url}`} alt="リンク先のfavicon" />
-                            {url}
-                        </div>
-                    </div>
-                    {data.image && <img className={styles.linkImage} src={data.image} alt="リンク先の画像" />}
-                </Link>
-            </div>
-        )
-    }
-    return <div>エラー</div>
+    return <></>
 
 };
