@@ -4,6 +4,11 @@
     width: auto;
 }
 
-.mermaid {
+.container {
     background-color: white;
+}
+
+.mermaid {
+    display: flex;
+    justify-content: center;
 }

@@ -9,11 +9,10 @@ import styles from './code.module.css';
 
 type Props = {
     src: string;
-    className?: string;
 };
 
 
-export const Mermaid: FC<Props> = ({ src, className }) => {
+export const Mermaid: FC<Props> = ({ src }) => {
     const ref = useRef<HTMLDivElement>(null);
     useEffect(() => {
         if (src && ref.current) {
@@ -22,11 +21,11 @@ export const Mermaid: FC<Props> = ({ src, className }) => {
     }, []);
     return (
         src ?
-            <div className={styles.mermaid}>
-                <div className={className} ref={ref} key={src}>
+            <div className={styles.container}>
+                <div className={styles.mermaid} ref={ref} key={src}>
                     {src}
                 </div>
             </div>
-            : <div className={className} key={src} />
+            : <div key={src} />
     );
 }
