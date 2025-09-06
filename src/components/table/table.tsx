@@ -142,6 +142,7 @@ export function Table({ pages }: Props) {
                 data={data}
                 initialState={{
                     density: 'comfortable',
+                    sorting: [{ id: 'created_time', desc: true }],
                 }}
                 columnFilterDisplayMode="popover"
             />
