@@ -1,8 +1,8 @@
 import Main from "@/components/layout/main/main";
 import { blogDatabaseId, getDatabase } from "@/components/notion/notion";
+import { Table } from "@/components/table/table";
 import { QueryDatabaseParameters } from "@notionhq/client/build/src/api-endpoints";
 import { cache } from "react";
-import { Table } from "../components/table/table";
 
 export const revalidate = 86400;
 
@@ -30,8 +30,6 @@ export default async function Home() {
     },
   }
   const timeSortedPages = await getPages(timeSortedParam);
-
-
 
   return (
     <Main>

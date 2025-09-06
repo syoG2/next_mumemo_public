@@ -1,8 +1,9 @@
 "use client";
 
 import { ExDatabaseObjectResponse, ExPageObjectResponse, ExPartialDatabaseObjectResponse, ExPartialPageObjectResponse } from '@/components/notion/notion';
+import { useMediaQuery } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
 import Link from 'next/link';
 import path from 'path';
@@ -39,22 +40,20 @@ export function Table({ pages }: Props) {
         timeZone: 'Asia/Tokyo'
     };
 
-    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)', {
-        // サーバーサイドレンダリング時にも正しい値を返す
-        ssrMatchMedia: (query) => ({
-            matches: typeof window !== 'undefined'
-                ? window.matchMedia(query).matches
-                : false, // サーバーサイドではfalse（light）かtrue（dark）を適宜指定
-        }),
-    });
-    const theme = useMemo(
+
+    const prefersLightMode = useMediaQuery('(prefers-color-scheme: light)');
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+    console.log("prefersLightMode:", prefersLightMode);
+    console.log("prefersDarkMode:", prefersDarkMode);
+
+    const muiTheme = useMemo(
         () =>
             createTheme({
                 palette: {
-                    mode: prefersDarkMode ? 'dark' : 'light',
+                    mode: prefersLightMode ? 'light' : 'dark',
                 },
             }),
-        [prefersDarkMode],
+        [prefersLightMode],
     );
 
     const data = useMemo<Page[]>(() => pages.filter(page => page.type === "PageObjectResponse")
@@ -143,16 +142,24 @@ export function Table({ pages }: Props) {
     );
 
     return (
-        <ThemeProvider theme={theme}>
-            <MaterialReactTable
-                columns={columns}
-                data={data}
-                initialState={{
-                    density: 'comfortable',
-                    sorting: [{ id: 'created_time', desc: true }],
-                }}
-                columnFilterDisplayMode="popover"
-            />
+        <ThemeProvider theme={muiTheme}>
+            {
+                (prefersDarkMode === false && prefersLightMode === false)
+                    ? (
+                        <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem' }}>
+                            <CircularProgress />
+                        </div>
+                    )
+                    : <MaterialReactTable
+                        columns={columns}
+                        data={data}
+                        initialState={{
+                            density: 'comfortable',
+                            sorting: [{ id: 'created_time', desc: true }],
+                        }}
+                        columnFilterDisplayMode="popover"
+                    />
+            }
         </ThemeProvider>
 
     );
