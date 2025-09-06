@@ -76,7 +76,7 @@ export function Table({ pages }: Props) {
                     const id = row.original.id;
                     const title = cell.getValue<string>();
                     return (
-                        <Link className={styles.link} href={path.join(`blog/${id}`)} prefetch={true}>
+                        <Link className={styles.link} href={path.join(`blog/${id}`)} prefetch={false}>
                             <h3>
                                 {title}
                             </h3>
@@ -141,7 +141,7 @@ export function Table({ pages }: Props) {
                 columns={columns}
                 data={data}
                 initialState={{
-                    density: 'compact',
+                    density: 'comfortable',
                 }}
                 columnFilterDisplayMode="popover"
             />
