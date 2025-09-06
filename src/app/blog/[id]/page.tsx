@@ -74,7 +74,7 @@ export default async function Article({ params }: Props) {
                         switch (content.object.type) {
                             case 'heading_1':
                                 return (
-                                    <div className={styles.navH1}>
+                                    <div key={content.object.id} className={styles.navH1}>
                                         <Link className={styles.nav} href={`#${content.object.id}`}>
                                             <RichText text={content.object.heading_1.rich_text} />
                                         </Link>
@@ -82,7 +82,7 @@ export default async function Article({ params }: Props) {
                                 )
                             case 'heading_2':
                                 return (
-                                    <div className={styles.navH2}>
+                                    <div key={content.object.id} className={styles.navH2}>
                                         <Link className={styles.nav} href={`#${content.object.id}`}>
                                             <RichText text={content.object.heading_2.rich_text} />
                                         </Link>

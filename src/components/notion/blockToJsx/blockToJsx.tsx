@@ -1,4 +1,5 @@
 import { ExBlockObjectResponse, ExPartialBlockObjectResponse } from "@/components/notion/notion";
+import { randomUUID } from 'crypto';
 import { Bookmark } from "../blocks/bookmark/bookmark";
 import { BulletedList } from "../blocks/bulletedList/bulletedList";
 import { BulletedListItem } from "../blocks/bulletedListItem/bulletedListItem";
@@ -29,16 +30,16 @@ export function blockToJsx(block: ExPartialBlockObjectResponse | ExBlockObjectRe
     } else {
         switch (block.object.type) {
             case "bookmark":
-                return <Bookmark block={block.object} nestBlocks={block.children} />
+                return <Bookmark key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "breadcrumb":
                 // breadcrumbはapiから適切なデータが取得できないため、表示しない
                 return null;
             case "bulleted_list":
-                return <BulletedList block={block.object} nestBlocks={block.children} />
+                return <BulletedList key={randomUUID()} block={block.object} nestBlocks={block.children} />
             case "bulleted_list_item":
-                return <BulletedListItem block={block.object} nestBlocks={block.children} />
+                return <BulletedListItem key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "callout":
-                return <Callout block={block.object} nestBlocks={block.children} />
+                return <Callout key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "child_database":
                 // child_databaseはapiから適切なデータが取得できないため、表示しない
                 return null;
@@ -46,46 +47,46 @@ export function blockToJsx(block: ExPartialBlockObjectResponse | ExBlockObjectRe
                 // child_pageは公開できるように実装していない(適切なプロパティを持っていない)ため、表示しない
                 return null;
             case "code":
-                return <Code block={block.object} nestBlocks={block.children} />
+                return <Code key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "column_list":
-                return <ColumnList block={block.object} nestBlocks={block.children} />
+                return <ColumnList key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "divider":
-                return <Divider block={block.object} nestBlocks={block.children} />
+                return <Divider key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "equation":
-                return <Equation block={block.object} nestBlocks={block.children} />
+                return <Equation key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "file":
-                return <File block={block.object} nestBlocks={block.children} />
+                return <File key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "heading_1":
-                return <Heading1 block={block.object} nestBlocks={block.children} />
+                return <Heading1 key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "heading_2":
-                return <Heading2 block={block.object} nestBlocks={block.children} />
+                return <Heading2 key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "heading_3":
-                return <Heading3 block={block.object} nestBlocks={block.children} />
+                return <Heading3 key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "image":
-                return <NotionImage block={block.object} nestBlocks={block.children} />
+                return <NotionImage key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "link_to_page":
-                return <LinkToPage block={block.object} nestBlocks={block.children} />
+                return <LinkToPage key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "numbered_list":
-                return <NumberedList block={block.object} nestBlocks={block.children} />
+                return <NumberedList key={randomUUID()} block={block.object} nestBlocks={block.children} />
             case "numbered_list_item":
-                return <NumberedListItem block={block.object} nestBlocks={block.children} />
+                return <NumberedListItem key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "paragraph":
-                return <Paragraph block={block.object} nestBlocks={block.children} />
+                return <Paragraph key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "quote":
-                return <Quote block={block.object} nestBlocks={block.children} />
+                return <Quote key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "synced_block":
-                return <SyncedBlock block={block.object} nestBlocks={block.children} />
+                return <SyncedBlock key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "table":
-                return <Table block={block.object} nestBlocks={block.children} />
+                return <Table key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "to_do":
-                return <Todo block={block.object} nestBlocks={block.children} />
+                return <Todo key={block.object.id} block={block.object} nestBlocks={block.children} />
             case "toggle":
-                return <Toggle block={block.object} nestBlocks={block.children} />
+                return <Toggle key={block.object.id} block={block.object} nestBlocks={block.children} />
             case 'table_of_contents':
                 // table_of_contentsはapiから適切なデータが取得できないため、表示しない
                 return null
             case "video":
-                return <Video block={block.object} nestBlocks={block.children} />
+                return <Video key={block.object.id} block={block.object} nestBlocks={block.children} />
             default:
                 return (
                     <details id={block.object.id}>
