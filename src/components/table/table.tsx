@@ -39,7 +39,14 @@ export function Table({ pages }: Props) {
         timeZone: 'Asia/Tokyo'
     };
 
-    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)', {
+        // サーバーサイドレンダリング時にも正しい値を返す
+        ssrMatchMedia: (query) => ({
+            matches: typeof window !== 'undefined'
+                ? window.matchMedia(query).matches
+                : false, // サーバーサイドではfalse（light）かtrue（dark）を適宜指定
+        }),
+    });
     const theme = useMemo(
         () =>
             createTheme({
